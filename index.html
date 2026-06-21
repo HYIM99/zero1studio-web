@@ -79,6 +79,61 @@
             .hero p { font-size: 1.05rem; }
             .portfolio-grid { grid-template-columns: 1fr; }
         }
+        /* IT主管新增：GDPR 优雅悬浮弹窗样式 */
+        .gdpr-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150%);
+            width: 90%;
+            max-width: 500px;
+            background-color: #ffffff;
+            color: #333333;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(211,53,21,0.1);
+        }
+        .gdpr-banner.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        .gdpr-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            text-align: left;
+        }
+        html[dir="rtl"] .gdpr-text {
+            text-align: right;
+        }
+        .gdpr-btn-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .gdpr-btn-accept {
+            padding: 8px 20px;
+            background-color: #d33515; /* 对应DimSum红，美甲店可改成粉色/黑色，甜品店可改成橙色 */
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .gdpr-btn-accept:hover {
+            background-color: #333333;
+        }
+        @media (max-width: 768px) {
+            .gdpr-banner { bottom: 10px; padding: 15px; }
+        }
+    </style>
+   
     </style>
 </head>
 <body>
@@ -170,6 +225,66 @@
         <p>© 2026 Zero1 Studio. Tutti i diritti riservati.</p>
         <p style="font-size: 0.8rem; opacity: 0.7;">Zero1 Studio</p>
     </footer>
+    <!-- IT主管新增：GDPR 弹窗实体 -->
+    <div id="gdprBanner" class="gdpr-banner">
+        <p class="gdpr-text" data-i18n="gdpr_text">
+            Utilizziamo i cookie per garantire la migliore esperienza sul nostro sito e per analizzare il traffico. Cliccando su "Accetta", acconsenti al loro utilizzo.
+        </p>
+        <div class="gdpr-btn-group">
+            <button class="gdpr-btn-accept" onclick="acceptGDPR()" data-i18n="gdpr_accept">Accetta</button>
+        </div>
+    </div>
+
+    <script>
+        // 在你原有的 translations 资产包里，分别为六个语言追加 gdpr_text 和 gdpr_accept 两个字段：
+        // 举例：请把你原有的 translations 内部增补成下面这样：
+        Object.assign(translations.zh, {
+            gdpr_text: "我们使用 Cookie 来确保您在我们网站上获得最佳体验并分析流量。点击“接受”即表示您同意其使用。",
+            gdpr_accept: "接受"
+        });
+        Object.assign(translations.it, {
+            gdpr_text: "Utilizziamo i cookie per garantire la migliore esperienza sul nostro sito e per analizzare il traffico. Cliccando su 'Accetta', acconsenti al loro utilizzo ai sensi del GDPR.",
+            gdpr_accept: "Accetta"
+        });
+        Object.assign(translations.en, {
+            gdpr_text: "We use cookies to ensure you get the best experience on our website and to analyze traffic. By clicking 'Accept', you consent to their use.",
+            gdpr_accept: "Accept"
+        });
+        Object.assign(translations.de, {
+            gdpr_text: "Wir verwenden Cookies, um sicherzustellen, dass Sie das beste Erlebnis auf unserer Website erhalten. Wenn Sie auf 'Akzeptieren' klicken, stimmen Sie deren Verwendung zu.",
+            gdpr_accept: "Akzeptieren"
+        });
+        Object.assign(translations.fr, {
+            gdpr_text: "Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site. En cliquant sur 'Accepter', vous consentez à leur utilisation.",
+            gdpr_accept: "Accepter"
+        });
+        Object.assign(translations.ar, {
+            gdpr_text: "نحن نستخدم ملفات تعريف الارتباط لضمان حصولك على أفضل تجربة على موقعنا ولتحليل حركة المرور. بالنقر فوق 'قبول'، فإنك توافق على استخدامها.",
+            gdpr_accept: "قبول"
+        });
+
+        // GDPR 核心控制核心脚本
+        window.addEventListener('DOMContentLoaded', () => {
+            // 检查用户在过去 24 小时内是否已经点击过接受
+            const gdprConsent = localStorage.getItem('gdpr_consent_2026');
+            const consentTimestamp = localStorage.getItem('gdpr_consent_time');
+            const now = new Date().getTime();
+
+            // 如果没有点击过，或者点击时间已经超过 24 小时 (86400000 毫秒)，则弹出
+            if (!gdprConsent || (now - consentTimestamp > 86400000)) {
+                setTimeout(() => {
+                    document.getElementById('gdprBanner').classList.add('show');
+                }, 1000); // 网页加载完 1 秒后优雅滑出
+            }
+        });
+
+        function acceptGDPR() {
+            const now = new Date().getTime();
+            localStorage.setItem('gdpr_consent_2026', 'accepted');
+            localStorage.setItem('gdpr_consent_time', now);
+            document.getElementById('gdprBanner').classList.remove('show');
+        }
+    </script>
 
 </body>
 </html>
