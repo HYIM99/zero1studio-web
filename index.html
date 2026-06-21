@@ -41,7 +41,7 @@
         .portfolio-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.02); transition: all 0.3s; display: flex; flex-direction: column; }
         .portfolio-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.08); }
         
-        /* 仿真网页顶条，增加科技感 */
+        /* 仿真网页顶条 */
         .web-browser-bar { background: #f5f5f7; padding: 10px 16px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
         .dot.red { background: #ff5f56; }
@@ -54,7 +54,7 @@
         .brand-logo-circle { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.3); }
         .brand-title { font-size: 1.6rem; font-weight: 700; }
 
-        /* 三个案例的特定视觉底面 */
+        /* 案例特定视觉底面 */
         .bg-domochi { background: linear-gradient(135deg, #e54d58, #ff6b76); }
         .bg-dimsum { background: linear-gradient(135deg, #5c2016, #7d3225); }
         .bg-animabella { background: linear-gradient(135deg, #111111, #2d2d2d); }
@@ -70,16 +70,11 @@
 
         footer { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.1); line-height: 1.8; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         
-        /* 方案三开关标志嵌入页脚 */
+        /* 方案三开关标志 */
         .icon-switch { width: 36px; height: 36px; border: 4px solid var(--primary); border-radius: 50%; border-top-color: transparent; position: relative; display: flex; justify-content: center; }
         .icon-switch::after { content: ''; width: 4px; height: 16px; background: var(--primary); border-radius: 2px; position: absolute; top: -4px; }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1.05rem; }
-            .portfolio-grid { grid-template-columns: 1fr; }
-        }
-        /* IT主管新增：GDPR 优雅悬浮弹窗样式 */
+        /* GDPR 优雅悬浮弹窗样式 */
         .gdpr-banner {
             position: fixed;
             bottom: 20px;
@@ -97,7 +92,7 @@
             flex-direction: column;
             gap: 12px;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid rgba(211,53,21,0.1);
+            border: 1px solid rgba(0,113,227,0.15);
         }
         .gdpr-banner.show {
             transform: translateX(-50%) translateY(0);
@@ -107,9 +102,6 @@
             line-height: 1.4;
             text-align: left;
         }
-        html[dir="rtl"] .gdpr-text {
-            text-align: right;
-        }
         .gdpr-btn-group {
             display: flex;
             justify-content: flex-end;
@@ -117,7 +109,7 @@
         }
         .gdpr-btn-accept {
             padding: 8px 20px;
-            background-color: #0071e3; /* 对应DimSum红，美甲店可改成粉色/黑色，甜品店可改成橙色 */
+            background-color: var(--primary); 
             color: #ffffff;
             font-size: 0.85rem;
             font-weight: bold;
@@ -127,18 +119,19 @@
             transition: background 0.2s;
         }
         .gdpr-btn-accept:hover {
-            background-color: #333333;
+            background-color: var(--dark);
         }
         @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1.05rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
             .gdpr-banner { bottom: 10px; padding: 15px; }
         }
-    </style>
-   
     </style>
 </head>
 <body>
 
-    <!-- 导航栏 (方案二：纯字标流) -->
+    <!-- 导航栏 -->
     <header>
         <div class="nav-container">
             <a href="#" class="logo-container">
@@ -149,7 +142,7 @@
         </div>
     </header>
 
-    <!-- 主视觉区 (方案一：极简徽章嵌入) -->
+    <!-- 主视觉区 -->
     <section class="hero">
         <div class="icon-badge"></div>
         <h1>助力意大利华人小店<br>7天极速转型，轻松赚老外的钱</h1>
@@ -157,7 +150,7 @@
         <a href="https://wa.me/YOUR_PHONE_NUMBER" class="btn-cta">联系我们，免费获取定制方案</a>
     </section>
 
-    <!-- 核心案例展示区 (Portfolio Showcase) -->
+    <!-- 核心案例展示区 -->
     <section class="portfolio-section">
         <h2 class="section-title">意大利本地商家交付案例展示</h2>
         <div class="portfolio-grid">
@@ -219,62 +212,42 @@
         </div>
     </section>
 
-    <!-- 页脚合规公示区 (方案三：电源开关图标嵌入) -->
+    <!-- 页脚合规公示区 -->
     <footer>
         <div class="icon-switch"></div>
         <p>© 2026 Zero1 Studio. Tutti i diritti riservati.</p>
         <p style="font-size: 0.8rem; opacity: 0.7;">Zero1 Studio</p>
     </footer>
-    <!-- IT主管新增：GDPR 弹窗实体 -->
+
+    <!-- GDPR 弹窗实体（已完全规范化至 </body> 上方） -->
     <div id="gdprBanner" class="gdpr-banner">
-        <p class="gdpr-text" data-i18n="gdpr_text">
-            Utilizziamo i cookie per garantire la migliore esperienza sul nostro sito e per analizzare il traffico. Cliccando su "Accetta", acconsenti al loro utilizzo.
+        <p class="gdpr-text" id="gdprText">
+            Utilizziamo i cookie per garantire la migliore esperienza sul nostro sito e per analizzare il traffico. Cliccando su "Accetta", acconsenti al loro utilizzo ai sensi del GDPR.
         </p>
         <div class="gdpr-btn-group">
-            <button class="gdpr-btn-accept" onclick="acceptGDPR()" data-i18n="gdpr_accept">Accetta</button>
+            <button class="gdpr-btn-accept" id="gdprBtn" onclick="acceptGDPR()">Accetta</button>
         </div>
     </div>
 
+    <!-- GDPR 核心控制核心脚本 -->
     <script>
-        // 在你原有的 translations 资产包里，分别为六个语言追加 gdpr_text 和 gdpr_accept 两个字段：
-        // 举例：请把你原有的 translations 内部增补成下面这样：
-        Object.assign(translations.zh, {
-            gdpr_text: "我们使用 Cookie 来确保您在我们网站上获得最佳体验并分析流量。点击“接受”即表示您同意其使用。",
-            gdpr_accept: "接受"
-        });
-        Object.assign(translations.it, {
-            gdpr_text: "Utilizziamo i cookie per garantire la migliore esperienza sul nostro sito e per analizzare il traffico. Cliccando su 'Accetta', acconsenti al loro utilizzo ai sensi del GDPR.",
-            gdpr_accept: "Accetta"
-        });
-        Object.assign(translations.en, {
-            gdpr_text: "We use cookies to ensure you get the best experience on our website and to analyze traffic. By clicking 'Accept', you consent to their use.",
-            gdpr_accept: "Accept"
-        });
-        Object.assign(translations.de, {
-            gdpr_text: "Wir verwenden Cookies, um sicherzustellen, dass Sie das beste Erlebnis auf unserer Website erhalten. Wenn Sie auf 'Akzeptieren' klicken, stimmen Sie deren Verwendung zu.",
-            gdpr_accept: "Akzeptieren"
-        });
-        Object.assign(translations.fr, {
-            gdpr_text: "Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site. En cliquant sur 'Accepter', vous consentez à leur utilisation.",
-            gdpr_accept: "Accepter"
-        });
-        Object.assign(translations.ar, {
-            gdpr_text: "نحن نستخدم ملفات تعريف الارتباط لضمان حصولك على أفضل تجربة على موقعنا ولتحليل حركة المرور. بالنقر فوق 'قبول'، فإنك توافق على استخدامها.",
-            gdpr_accept: "قبول"
-        });
-
-        // GDPR 核心控制核心脚本
         window.addEventListener('DOMContentLoaded', () => {
-            // 检查用户在过去 24 小时内是否已经点击过接受
+            // 智能语言判断：如果你通过浏览器语言检测发现用户是中文，则自动显示中文弹窗提示，符合工作室国际化定位
+            const isZh = navigator.language.startsWith('zh') || document.documentElement.lang.startsWith('zh');
+            if (isZh) {
+                document.getElementById('gdprText').innerText = "我们使用 Cookie 来确保您在我们网站上获得最佳体验并分析流量。点击“接受”即表示您同意其使用。";
+                document.getElementById('gdprBtn').innerText = "接受";
+            }
+
             const gdprConsent = localStorage.getItem('gdpr_consent_2026');
             const consentTimestamp = localStorage.getItem('gdpr_consent_time');
             const now = new Date().getTime();
 
-            // 如果没有点击过，或者点击时间已经超过 24 小时 (86400000 毫秒)，则弹出
+            // 如果没有点击过，或者点击时间已经超过 24 小时，则滑出提示
             if (!gdprConsent || (now - consentTimestamp > 86400000)) {
                 setTimeout(() => {
                     document.getElementById('gdprBanner').classList.add('show');
-                }, 1000); // 网页加载完 1 秒后优雅滑出
+                }, 1000); 
             }
         });
 
