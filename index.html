@@ -10,6 +10,7 @@
             --dark: #1d1d1f;
             --light: #f5f5f7;
             --text-muted: #86868b;
+            --wechat-green: #07c160; /* 微信绿 */
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
         body { background-color: var(--light); color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
@@ -23,7 +24,7 @@
         .logo-text span { color: var(--primary); }
         .logo-sub { font-size: 0.55rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
 
-        /* 新增导航菜单样式 */
+        /* 导航菜单样式 */
         .nav-menu { display: flex; gap: 25px; list-style: none; align-items: center; }
         .nav-menu a { text-decoration: none; color: var(--dark); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
         .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
@@ -35,112 +36,9 @@
         .hero h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 20px; line-height: 1.3; }
         .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 30px; }
         
-        .btn-cta { display: inline-block; background: var(--primary); color: white; padding: 14px 35px; border-radius: 980px; text-decoration: none; font-weight: 600; transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,113,227,0.3); }
+        /* 微信联动按钮样式 */
+        .btn-cta { display: inline-block; background: var(--wechat-green); color: white; padding: 14px 35px; border-radius: 980px; text-decoration: none; font-weight: 600; transition: all 0.2s; box-shadow: 0 4px 15px rgba(7,193,96,0.3); border: none; cursor: pointer; }
         .btn-cta:hover { opacity: 0.9; transform: scale(1.02); }
 
         /* 首页简版案例过渡区 */
-        .portfolio-intro { max-width: 1000px; margin: 0 auto 100px; padding: 60px 20px; background: white; border-radius: 32px; text-align: center; box-shadow: 0 4px 30px rgba(0,0,0,0.02); }
-        .portfolio-intro h2 { font-size: 2rem; font-weight: 700; margin-bottom: 15px; }
-        .portfolio-intro p { color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; font-size: 1.05rem; }
-        .btn-secondary { display: inline-block; background: var(--dark); color: white; padding: 12px 30px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: background 0.2s; }
-        .btn-secondary:hover { background: var(--primary); }
-
-        footer { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .icon-switch { width: 36px; height: 36px; border: 4px solid var(--primary); border-radius: 50%; border-top-color: transparent; position: relative; display: flex; justify-content: center; }
-        .icon-switch::after { content: ''; width: 4px; height: 16px; background: var(--primary); border-radius: 2px; position: absolute; top: -4px; }
-
-        /* GDPR 悬浮弹窗 */
-        .gdpr-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150%); width: 90%; max-width: 500px; background-color: #ffffff; color: #333333; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 9999; display: flex; flex-direction: column; gap: 12px; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(0,113,227,0.15); }
-        .gdpr-banner.show { transform: translateX(-50%) translateY(0); }
-        .gdpr-text { font-size: 0.85rem; line-height: 1.4; text-align: left; }
-        .gdpr-btn-group { display: flex; justify-content: flex-end; gap: 10px; }
-        .gdpr-btn-accept { padding: 8px 20px; background-color: var(--primary); color: #ffffff; font-size: 0.85rem; font-weight: bold; border: none; border-radius: 20px; cursor: pointer; transition: background 0.2s; }
-        .gdpr-btn-accept:hover { background-color: var(--dark); }
-
-        @media (max-width: 768px) {
-            .nav-menu { display: none; } /* 移动端精简处理，或可后续添加汉堡菜单 */
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1.05rem; }
-            .gdpr-banner { bottom: 10px; padding: 15px; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 导航栏 -->
-    <header>
-        <div class="nav-container">
-            <a href="index.html" class="logo-container">
-                <div class="logo-text">Zero<span>1</span></div>
-                <div class="logo-sub">Studio</div>
-            </a>
-            <!-- 新增的中央导航页签 -->
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">首页</a></li>
-                <li><a href="portfolio.html">交付案例</a></li>
-                <li><a href="https://wa.me/YOUR_PHONE_NUMBER">关于我们</a></li>
-            </ul>
-            <a href="https://wa.me/YOUR_PHONE_NUMBER" class="btn-cta" style="padding: 8px 18px; font-size: 0.85rem; box-shadow: none;">立即咨询</a>
-        </div>
-    </header>
-
-    <!-- 主视觉区 -->
-    <section class="hero">
-        <div class="icon-badge"></div>
-        <h1>助力意大利华人小店<br>7天极速转型，轻松赚老外的钱</h1>
-        <p>专为美甲店、理发沙龙、餐饮打包店量身定制的高性价比数字化建站方案。帮您全自动接单、锁客，省去人工接电话的时间成本。</p>
-        <a href="https://wa.me/YOUR_PHONE_NUMBER" class="btn-cta">联系我们，免费获取定制方案</a>
-    </section>
-
-    <!-- 案例引导过渡区 -->
-    <section class="portfolio-intro">
-        <h2>意国本土商家的信赖之选</h2>
-        <p>我们已经成功帮助米兰、罗马等地的餐饮与美业华人老百姓摆脱语言沟通障碍，打通本地老外主流流量。点击下方按钮查看完整精选交付案例。</p>
-        <a href="portfolio.html" class="btn-secondary">浏览全部真实案例 →</a>
-    </section>
-
-    <!-- 页脚合规公示区 -->
-    <footer>
-        <div class="icon-switch"></div>
-        <p>© 2026 Zero1 Studio. Tutti i diritti riservati.</p>
-        <p style="font-size: 0.8rem; opacity: 0.7;">Zero1 Studio</p>
-    </footer>
-
-    <!-- GDPR 弹窗实体 -->
-    <div id="gdprBanner" class="gdpr-banner">
-        <p class="gdpr-text" id="gdprText">
-            Utilizziamo i cookie per garantire la migliore esperienza sul nostro si e per analizzare il traffico. Cliccando su "Accetta", acconsenti al loro utilizzo ai sensi del GDPR.
-        </p>
-        <div class="gdpr-btn-group">
-            <button class="gdpr-btn-accept" id="gdprBtn" onclick="acceptGDPR()">Accetta</button>
-        </div>
-    </div>
-
-    <!-- GDPR 脚本 -->
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const isZh = navigator.language.startsWith('zh') || document.documentElement.lang.startsWith('zh');
-            if (isZh) {
-                document.getElementById('gdprText').innerText = "我们使用 Cookie 来确保您在我们网站上获得最佳体验并分析流量。点击“接受”即表示您同意其使用。";
-                document.getElementById('gdprBtn').innerText = "接受";
-            }
-            const gdprConsent = localStorage.getItem('gdpr_consent_2026');
-            const consentTimestamp = localStorage.getItem('gdpr_consent_time');
-            const now = new Date().getTime();
-
-            if (!gdprConsent || (now - consentTimestamp > 86400000)) {
-                setTimeout(() => {
-                    document.getElementById('gdprBanner').classList.add('show');
-                }, 1000); 
-            }
-        });
-
-        function acceptGDPR() {
-            const now = new Date().getTime();
-            localStorage.setItem('gdpr_consent_2026', 'accepted');
-            localStorage.setItem('gdpr_consent_time', now);
-            document.getElementById('gdprBanner').classList.remove('show');
-        }
-    </script>
-</body>
-</html>
+        .portfolio-intro { max-width: 1000px; margin: 0 auto 100px; padding: 60px 2
