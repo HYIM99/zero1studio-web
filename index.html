@@ -13,118 +13,54 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
         body { background-color: var(--light); color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        /* 导航栏 */
         header { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.1); }
         .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         
-        /* 导航栏方案二字标 */
         .logo-container { text-decoration: none; display: flex; flex-direction: column; }
         .logo-text { font-weight: 700; font-size: 1.4rem; color: var(--dark); letter-spacing: -0.5px; line-height: 1; }
         .logo-text span { color: var(--primary); }
         .logo-sub { font-size: 0.55rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
 
-        .hero { max-width: 1000px; margin: 140px auto 40px; padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        
-        /* 方案一圆形徽章嵌入 */
+        /* 新增导航菜单样式 */
+        .nav-menu { display: flex; gap: 25px; list-style: none; align-items: center; }
+        .nav-menu a { text-decoration: none; color: var(--dark); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
+
+        /* 主视觉区 */
+        .hero { max-width: 1000px; margin: 160px auto 60px; padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
         .icon-badge { width: 56px; height: 56px; border: 6px solid var(--dark); border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
         .icon-badge::after { content: ''; width: 6px; height: 36px; background: var(--primary); border-radius: 3px; position: absolute; }
-
         .hero h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 20px; line-height: 1.3; }
         .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 30px; }
+        
         .btn-cta { display: inline-block; background: var(--primary); color: white; padding: 14px 35px; border-radius: 980px; text-decoration: none; font-weight: 600; transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,113,227,0.3); }
         .btn-cta:hover { opacity: 0.9; transform: scale(1.02); }
 
-        .portfolio-section { max-width: 1000px; margin: 0 auto 80px; padding: 20px; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; font-weight: 700; letter-spacing: -0.5px; }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
-        /* 交付案例卡片样式 */
-        .portfolio-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.02); transition: all 0.3s; display: flex; flex-direction: column; }
-        .portfolio-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.08); }
-        
-        /* 仿真网页顶条 */
-        .web-browser-bar { background: #f5f5f7; padding: 10px 16px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
-        .browser-url { background: white; color: var(--text-muted); font-size: 0.75rem; padding: 3px 15px; border-radius: 6px; flex-grow: 1; margin-left: 10px; text-align: left; font-family: monospace; border: 1px solid rgba(0,0,0,0.03); }
+        /* 首页简版案例过渡区 */
+        .portfolio-intro { max-width: 1000px; margin: 0 auto 100px; padding: 60px 20px; background: white; border-radius: 32px; text-align: center; box-shadow: 0 4px 30px rgba(0,0,0,0.02); }
+        .portfolio-intro h2 { font-size: 2rem; font-weight: 700; margin-bottom: 15px; }
+        .portfolio-intro p { color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; font-size: 1.05rem; }
+        .btn-secondary { display: inline-block; background: var(--dark); color: white; padding: 12px 30px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .btn-secondary:hover { background: var(--primary); }
 
-        /* 卡片大图模拟区域 */
-        .portfolio-visual { height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 20px; text-align: center; position: relative; }
-        .brand-logo-circle { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.3); }
-        .brand-title { font-size: 1.6rem; font-weight: 700; }
-
-        /* 案例特定视觉底面 */
-        .bg-domochi { background: linear-gradient(135deg, #e54d58, #ff6b76); }
-        .bg-dimsum { background: linear-gradient(135deg, #5c2016, #7d3225); }
-        .bg-animabella { background: linear-gradient(135deg, #111111, #2d2d2d); }
-
-        .portfolio-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .tag { display: inline-block; background: #e8f4ff; color: var(--primary); padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; margin-bottom: 12px; align-self: flex-start; }
-        .tag.tag-dark { background: #f5f5f7; color: var(--dark); }
-        .portfolio-body h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
-        .portfolio-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
-        
-        .btn-view { display: inline-flex; align-items: center; justify-content: center; background: var(--dark); color: white; padding: 10px 20px; border-radius: 12px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: background 0.2s; margin-top: auto; }
-        .btn-view:hover { background: var(--primary); }
-
-        footer { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.1); line-height: 1.8; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        
-        /* 方案三开关标志 */
+        footer { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .icon-switch { width: 36px; height: 36px; border: 4px solid var(--primary); border-radius: 50%; border-top-color: transparent; position: relative; display: flex; justify-content: center; }
         .icon-switch::after { content: ''; width: 4px; height: 16px; background: var(--primary); border-radius: 2px; position: absolute; top: -4px; }
 
-        /* GDPR 优雅悬浮弹窗样式 */
-        .gdpr-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(150%);
-            width: 90%;
-            max-width: 500px;
-            background-color: #ffffff;
-            color: #333333;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid rgba(0,113,227,0.15);
-        }
-        .gdpr-banner.show {
-            transform: translateX(-50%) translateY(0);
-        }
-        .gdpr-text {
-            font-size: 0.85rem;
-            line-height: 1.4;
-            text-align: left;
-        }
-        .gdpr-btn-group {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-        .gdpr-btn-accept {
-            padding: 8px 20px;
-            background-color: var(--primary); 
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .gdpr-btn-accept:hover {
-            background-color: var(--dark);
-        }
+        /* GDPR 悬浮弹窗 */
+        .gdpr-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150%); width: 90%; max-width: 500px; background-color: #ffffff; color: #333333; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 9999; display: flex; flex-direction: column; gap: 12px; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(0,113,227,0.15); }
+        .gdpr-banner.show { transform: translateX(-50%) translateY(0); }
+        .gdpr-text { font-size: 0.85rem; line-height: 1.4; text-align: left; }
+        .gdpr-btn-group { display: flex; justify-content: flex-end; gap: 10px; }
+        .gdpr-btn-accept { padding: 8px 20px; background-color: var(--primary); color: #ffffff; font-size: 0.85rem; font-weight: bold; border: none; border-radius: 20px; cursor: pointer; transition: background 0.2s; }
+        .gdpr-btn-accept:hover { background-color: var(--dark); }
+
         @media (max-width: 768px) {
+            .nav-menu { display: none; } /* 移动端精简处理，或可后续添加汉堡菜单 */
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1.05rem; }
-            .portfolio-grid { grid-template-columns: 1fr; }
             .gdpr-banner { bottom: 10px; padding: 15px; }
         }
     </style>
@@ -134,10 +70,16 @@
     <!-- 导航栏 -->
     <header>
         <div class="nav-container">
-            <a href="#" class="logo-container">
+            <a href="index.html" class="logo-container">
                 <div class="logo-text">Zero<span>1</span></div>
                 <div class="logo-sub">Studio</div>
             </a>
+            <!-- 新增的中央导航页签 -->
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="portfolio.html">交付案例</a></li>
+                <li><a href="https://wa.me/YOUR_PHONE_NUMBER">关于我们</a></li>
+            </ul>
             <a href="https://wa.me/YOUR_PHONE_NUMBER" class="btn-cta" style="padding: 8px 18px; font-size: 0.85rem; box-shadow: none;">立即咨询</a>
         </div>
     </header>
@@ -150,66 +92,11 @@
         <a href="https://wa.me/YOUR_PHONE_NUMBER" class="btn-cta">联系我们，免费获取定制方案</a>
     </section>
 
-    <!-- 核心案例展示区 -->
-    <section class="portfolio-section">
-        <h2 class="section-title">意大利本地商家交付案例展示</h2>
-        <div class="portfolio-grid">
-            
-            <!-- 案例一：Dōmochi -->
-            <div class="portfolio-card">
-                <div class="web-browser-bar">
-                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                    <div class="browser-url">www.domochi.it</div>
-                </div>
-                <div class="portfolio-visual bg-domochi">
-                    <div class="brand-logo-circle">🍡</div>
-                    <div class="brand-title">Dōmochi</div>
-                </div>
-                <div class="portfolio-body">
-                    <span class="tag">米兰时尚甜品店</span>
-                    <h3>Dōmochi Milano</h3>
-                    <p>专为时尚摩登甜品店定制的“线上精美橱窗”。针对移动端极速优化，地道意语强制公示，完美打通 Instagram 与本地生活流量，直击年轻消费者。</p>
-                    <a href="https://domochi.it" target="_blank" class="btn-view">访问线上橱窗 →</a>
-                </div>
-            </div>
-
-            <!-- 案例二：DimSum Express -->
-            <div class="portfolio-card">
-                <div class="web-browser-bar">
-                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                    <div class="browser-url">www.dimsumexpress.eu</div>
-                </div>
-                <div class="portfolio-visual bg-dimsum">
-                    <div class="brand-logo-circle">🥡</div>
-                    <div class="brand-title">DimSum Express</div>
-                </div>
-                <div class="portfolio-body">
-                    <span class="tag">餐饮外卖 / 打包店</span>
-                    <h3>DimSum Express</h3>
-                    <p>中意双语全自适应“数字化电子菜单”。一键集成 Deliveroo 外卖链接，清晰明了的法务、税号公示，全面取代高昂的纸质传单成本。</p>
-                    <a href="https://dimsumexpress.eu" target="_blank" class="btn-view">访问数字菜单 →</a>
-                </div>
-            </div>
-
-            <!-- 案例三：Anima Bella -->
-            <div class="portfolio-card">
-                <div class="web-browser-bar">
-                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                    <div class="browser-url">www.animabellanails.it</div>
-                </div>
-                <div class="portfolio-visual bg-animabella">
-                    <div class="brand-logo-circle">💅</div>
-                    <div class="brand-title">Anima Bella</div>
-                </div>
-                <div class="portfolio-body">
-                    <span class="tag tag-dark">美甲 / 美发 / 皮肤管理</span>
-                    <h3>Anima Bella Centro Estetico</h3>
-                    <p>配备 24 小时智能在线预约日历的现代美业沙龙网页。老外客人自主挑项目、挑时间，大幅减少店主接听、记录预约电话的时间成本。</p>
-                    <a href="https://www.animabellanails.it" target="_blank" class="btn-view">体验在线预约 →</a>
-                </div>
-            </div>
-
-        </div>
+    <!-- 案例引导过渡区 -->
+    <section class="portfolio-intro">
+        <h2>意国本土商家的信赖之选</h2>
+        <p>我们已经成功帮助米兰、罗马等地的餐饮与美业华人老百姓摆脱语言沟通障碍，打通本地老外主流流量。点击下方按钮查看完整精选交付案例。</p>
+        <a href="portfolio.html" class="btn-secondary">浏览全部真实案例 →</a>
     </section>
 
     <!-- 页脚合规公示区 -->
@@ -219,31 +106,28 @@
         <p style="font-size: 0.8rem; opacity: 0.7;">Zero1 Studio</p>
     </footer>
 
-    <!-- GDPR 弹窗实体（已完全规范化至 </body> 上方） -->
+    <!-- GDPR 弹窗实体 -->
     <div id="gdprBanner" class="gdpr-banner">
         <p class="gdpr-text" id="gdprText">
-            Utilizziamo i cookie per garantire la migliore esperienza sul nostro sito e per analizzare il traffico. Cliccando su "Accetta", acconsenti al loro utilizzo ai sensi del GDPR.
+            Utilizziamo i cookie per garantire la migliore esperienza sul nostro si e per analizzare il traffico. Cliccando su "Accetta", acconsenti al loro utilizzo ai sensi del GDPR.
         </p>
         <div class="gdpr-btn-group">
             <button class="gdpr-btn-accept" id="gdprBtn" onclick="acceptGDPR()">Accetta</button>
         </div>
     </div>
 
-    <!-- GDPR 核心控制核心脚本 -->
+    <!-- GDPR 脚本 -->
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            // 智能语言判断：如果你通过浏览器语言检测发现用户是中文，则自动显示中文弹窗提示，符合工作室国际化定位
             const isZh = navigator.language.startsWith('zh') || document.documentElement.lang.startsWith('zh');
             if (isZh) {
                 document.getElementById('gdprText').innerText = "我们使用 Cookie 来确保您在我们网站上获得最佳体验并分析流量。点击“接受”即表示您同意其使用。";
                 document.getElementById('gdprBtn').innerText = "接受";
             }
-
             const gdprConsent = localStorage.getItem('gdpr_consent_2026');
             const consentTimestamp = localStorage.getItem('gdpr_consent_time');
             const now = new Date().getTime();
 
-            // 如果没有点击过，或者点击时间已经超过 24 小时，则滑出提示
             if (!gdprConsent || (now - consentTimestamp > 86400000)) {
                 setTimeout(() => {
                     document.getElementById('gdprBanner').classList.add('show');
@@ -258,6 +142,5 @@
             document.getElementById('gdprBanner').classList.remove('show');
         }
     </script>
-
 </body>
 </html>
