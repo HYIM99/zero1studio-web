@@ -9,6 +9,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         :root {
             --primary: #0071e3;
@@ -29,35 +31,32 @@
         .menu-item { padding: 12px 15px; border-radius: 12px; cursor: pointer; color: #a1a1a6; font-weight: 500; transition: all 0.2s; }
         .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.1); color: var(--white); }
         .menu-item.active { background: var(--primary); }
-        .logout-btn { padding: 12px 15px; color: #ff453a; cursor: pointer; font-size: 0.9rem; }
 
         /* 右侧内容区 */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; }
         .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .header-bar h1 { font-size: 1.8rem; font-weight: 700; }
         
-        /* 动态内容面板 */
         .content-panel { display: none; background: var(--white); padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
         .content-panel.active { display: block; }
 
-        /* 表单样式 */
+        /* 表单与输入框 */
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #515154; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--light); transition: all 0.2s; }
         .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: var(--white); outline: none; }
         
-        /* 案例列表样式 */
-        .case-list { margin-top: 20px; border-top: 1px solid var(--light); padding-top: 20px; }
-        .case-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--light); border-radius: 10px; margin-bottom: 10px; }
-        .case-info h4 { font-weight: 600; }
-        .case-info p { font-size: 0.85rem; color: #86868b; }
+        /* 案例卡片样式 */
+        .case-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .case-item { display: flex; justify-content: space-between; align-items: center; padding: 18px; background: var(--light); border-radius: 12px; }
+        .case-info h4 { font-weight: 600; font-size: 1.05rem; }
+        .case-info p { font-size: 0.9rem; color: #86868b; margin-top: 4px; }
 
-        /* 按钮 */
-        .btn-save { background: var(--primary); color: var(--white); padding: 12px 30px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
-        .btn-save:hover { opacity: 0.9; }
-        .btn-danger { background: #ff453a; color: white; padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.85rem; }
+        /* 按钮控制 */
+        .btn-save { background: var(--primary); color: var(--white); padding: 12px 30px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; }
+        .btn-save:disabled { background: #a1a1a6; }
+        .btn-danger { background: #ff453a; color: white; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 500; }
 
-        /* 响应式适配 iPad 竖屏 */
         @media (max-width: 768px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; flex-direction: row; padding: 15px; }
@@ -78,7 +77,6 @@
                 <li class="menu-item" onclick="switchTab('contact')">联系方式</li>
             </ul>
         </div>
-        <div class="logout-btn">退出登录</div>
     </div>
 
     <div class="main-content">
@@ -86,81 +84,166 @@
         <div id="panel-info" class="content-panel active">
             <div class="header-bar">
                 <h1>修改主页介绍</h1>
-                <button class="btn-save" onclick="saveData('info')">保存更新</button>
+                <button class="btn-save" id="btn-save-info" onclick="saveSiteInfo()">保存更新</button>
             </div>
             <div class="form-group">
                 <label>主标题 (H1)</label>
-                <input type="text" id="input-title" value="助力意大利华人小店，7天极速转型，轻松赚老外的钱">
+                <input type="text" id="input-title">
             </div>
             <div class="form-group">
                 <label>副标题描述 (Paragraph)</label>
-                <textarea id="input-desc" rows="4">专为美甲店、理发沙龙、餐饮打包店量身定制的高性价比数字化建站方案。帮您全自动接单、锁客，省去人工接电话的时间成本。</textarea>
+                <textarea id="input-desc" rows="4"></textarea>
             </div>
         </div>
 
         <div id="panel-cases" class="content-panel">
             <div class="header-bar">
                 <h1>交付案例管理</h1>
-                <button class="btn-save" onclick="addCase()">添加新案例</button>
+                <button class="btn-save" onclick="addPortfolioCase()">发布新案例</button>
             </div>
-            <div class="form-group" style="background: var(--light); padding: 20px; border-radius: 12px;">
+            <div class="form-group" style="background: var(--light); padding: 20px; border-radius: 12px; margin-bottom: 30px;">
                 <label>新增案例名称</label>
-                <input type="text" id="case-name" placeholder="例如：米兰 DimSum Express 打包店">
-                <label style="margin-top: 10px;">案例简介</label>
-                <input type="text" id="case-text" placeholder="例如：打通本地老外主流流量，全自动接单">
+                <input type="text" id="case-name" placeholder="例如：米兰打包店智能点餐系统">
+                <label style="margin-top: 12px;">案例简介说明</label>
+                <input type="text" id="case-desc" placeholder="例如：帮店主全自动接单，锁客留存率提升40%">
             </div>
             
             <h3>已有案例列表</h3>
-            <div class="case-list">
-                <div class="case-item">
-                    <div class="case-info">
-                        <h4>米兰某美甲沙龙</h4>
-                        <p>实现线上预约，锁客留存率提升 40%</p>
-                    </div>
-                    <button class="btn-danger">删除</button>
+            <div class="case-list" id="dom-case-list">
                 </div>
-            </div>
         </div>
 
         <div id="panel-contact" class="content-panel">
             <div class="header-bar">
                 <h1>联系方式与二维码</h1>
-                <button class="btn-save" onclick="saveData('contact')">保存更新</button>
+                <button class="btn-save" id="btn-save-contact" onclick="saveContactInfo()">保存更新</button>
             </div>
             <div class="form-group">
                 <label>微信号码</label>
-                <input type="text" id="input-wechat" value="Zero1_Studio">
+                <input type="text" id="input-wechat">
             </div>
             <div class="form-group">
-                <label>更换微信二维码 (图片链接或上传)</label>
-                <input type="text" id="input-qr" placeholder="输入新的二维码图片路径...">
-                <p style="font-size: 0.8rem; color:#86868b; margin-top:5px;">当前使用的为系统的 Base64 默认内置图片。</p>
+                <label>更换微信二维码图片链接</label>
+                <input type="text" id="input-qr" placeholder="/assets/qrcode.png">
             </div>
         </div>
 
     </div>
 
     <script>
-        // 切换左侧菜单逻辑
+        // 1. 初始化 Supabase 客户端连接 (填入你的真实数据)
+        const SUPABASE_URL = "https://ujdnygslntqfivkuzcmu.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZG55Z3NsbnRxZml2a3V6Y211Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3Njk3MDYsImV4cCI6MjA4NjM0NTcwNn0.8-bCst3h_V-qA9_uQzIunGZ_uOAt3yR-t1zB1fO1vWw"; 
+        const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 页面初始化加载数据
+        window.onload = function() {
+            fetchSiteData();
+            fetchPortfolioCases();
+        };
+
+        // 核心功能：从云端数据库异步读取基础信息和联系方式
+        async function fetchSiteData() {
+            let { data, error } = await supabase.from('site_info').select('*').eq('id', 'zero1_main').single();
+            if (error) {
+                console.error("加载失败:", error);
+            } else if (data) {
+                document.getElementById('input-title').value = data.title || '';
+                document.getElementById('input-desc').value = data.description || '';
+                document.getElementById('input-wechat').value = data.wechat || '';
+                document.getElementById('input-qr').value = data.qr_code_url || '';
+            }
+        }
+
+        // 核心功能：从云端数据库异步读取案例列表
+        async function fetchPortfolioCases() {
+            let { data, error } = await supabase.from('portfolio_cases').select('*').order('id', { ascending: false });
+            const listContainer = document.getElementById('dom-case-list');
+            listContainer.innerHTML = ''; // 清空旧列表
+            
+            if (data) {
+                data.forEach(item => {
+                    listContainer.innerHTML += `
+                        <div class="case-item" id="case-${item.id}">
+                            <div class="case-info">
+                                <h4>${item.name}</h4>
+                                <p>${item.description}</p>
+                            </div>
+                            <button class="btn-danger" onclick="deleteCase(${item.id})">删除</button>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // 核心功能：保存修改后的介绍字样到数据库
+        async function saveSiteInfo() {
+            const btn = document.getElementById('btn-save-info');
+            btn.innerText = "正在云端保存...";
+            btn.disabled = true;
+
+            const title = document.getElementById('input-title').value;
+            const desc = document.getElementById('input-desc').value;
+
+            const { error } = await supabase.from('site_info').update({ title: title, description: desc }).eq('id', 'zero1_main');
+            
+            btn.innerText = "保存更新";
+            btn.disabled = false;
+            if (error) alert("更新失败：" + error.message);
+            else alert("🎉 官网主页介绍已实时同步更新！");
+        }
+
+        // 核心功能：保存修改后的联系方式到数据库
+        async function saveContactInfo() {
+            const btn = document.getElementById('btn-save-contact');
+            btn.innerText = "正在云端保存...";
+            btn.disabled = true;
+
+            const wechat = document.getElementById('input-wechat').value;
+            const qr = document.getElementById('input-qr').value;
+
+            const { error } = await supabase.from('site_info').update({ wechat: wechat, qr_code_url: qr }).eq('id', 'zero1_main');
+            
+            btn.innerText = "保存更新";
+            btn.disabled = false;
+            if (error) alert("更新失败：" + error.message);
+            else alert("🎉 微信及二维码信息已成功云同步！");
+        }
+
+        // 核心功能：往数据库新增一条案例记录
+        async function addPortfolioCase() {
+            const name = document.getElementById('case-name').value;
+            const desc = document.getElementById('case-desc').value;
+            if(!name) return alert('请输入案例名称');
+
+            const { error } = await supabase.from('portfolio_cases').insert([{ name: name, description: desc }]);
+            if (error) {
+                alert("发布失败：" + error.message);
+            } else {
+                document.getElementById('case-name').value = '';
+                document.getElementById('case-desc').value = '';
+                alert("🎉 新案例已成功上架！");
+                fetchPortfolioCases(); // 刷新列表显示
+            }
+        }
+
+        // 核心功能：从数据库彻底删除某条案例
+        async function deleteCase(id) {
+            if(!confirm('确定要删除这个交付案例吗？该操作不可逆。')) return;
+            const { error } = await supabase.from('portfolio_cases').delete().eq('id', id);
+            if (error) alert("删除失败：" + error.message);
+            else {
+                alert("案例已安全下架。");
+                fetchPortfolioCases(); // 刷新列表
+            }
+        }
+
+        // 切换菜单栏视图
         function switchTab(tabId) {
             document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
             document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
-            
-            event.target.classList.add('active');
+            event.currentTarget.classList.add('active');
             document.getElementById('panel-' + tabId).classList.add('active');
-        }
-
-        // 模拟保存按钮提示
-        function saveData(type) {
-            alert(type + ' 数据保存成功！(目前为前端预览，下一步接入数据库实现真实修改)');
-        }
-
-        // 模拟添加案例
-        function addCase() {
-            var name = document.getElementById('case-name').value;
-            var text = document.getElementById('case-text').value;
-            if(!name) return alert('请输入案例名称');
-            alert('添加成功：' + name);
         }
     </script>
 </body>
