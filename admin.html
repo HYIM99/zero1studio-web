@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero1 Studio | 控制台</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon.png.JPG">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <style>
+        :root {
+            --primary: #0071e3;
+            --dark: #1d1d1f;
+            --light: #f5f5f7;
+            --white: #ffffff;
+            --border: #d2d2d7;
+            --success: #34c759;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+        body { background-color: var(--light); color: var(--dark); display: flex; height: 100vh; overflow: hidden; }
+
+        /* 左侧侧边栏 */
+        .sidebar { width: 260px; background: var(--dark); color: var(--white); padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .brand { font-size: 1.4rem; font-weight: 700; margin-bottom: 40px; padding-left: 10px; }
+        .brand span { color: var(--primary); }
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .menu-item { padding: 12px 15px; border-radius: 12px; cursor: pointer; color: #a1a1a6; font-weight: 500; transition: all 0.2s; }
+        .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.1); color: var(--white); }
+        .menu-item.active { background: var(--primary); }
+        .logout-btn { padding: 12px 15px; color: #ff453a; cursor: pointer; font-size: 0.9rem; }
+
+        /* 右侧内容区 */
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .header-bar h1 { font-size: 1.8rem; font-weight: 700; }
+        
+        /* 动态内容面板 */
+        .content-panel { display: none; background: var(--white); padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        .content-panel.active { display: block; }
+
+        /* 表单样式 */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #515154; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--light); transition: all 0.2s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: var(--white); outline: none; }
+        
+        /* 案例列表样式 */
+        .case-list { margin-top: 20px; border-top: 1px solid var(--light); padding-top: 20px; }
+        .case-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--light); border-radius: 10px; margin-bottom: 10px; }
+        .case-info h4 { font-weight: 600; }
+        .case-info p { font-size: 0.85rem; color: #86868b; }
+
+        /* 按钮 */
+        .btn-save { background: var(--primary); color: var(--white); padding: 12px 30px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+        .btn-save:hover { opacity: 0.9; }
+        .btn-danger { background: #ff453a; color: white; padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.85rem; }
+
+        /* 响应式适配 iPad 竖屏 */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; flex-direction: row; padding: 15px; }
+            .brand { margin-bottom: 0; }
+            .menu-list { flex-direction: row; gap: 5px; }
+            .main-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="brand">Zero<span>1</span> Console</div>
+            <ul class="menu-list">
+                <li class="menu-item active" onclick="switchTab('info')">基本介绍</li>
+                <li class="menu-item" onclick="switchTab('cases')">案例管理</li>
+                <li class="menu-item" onclick="switchTab('contact')">联系方式</li>
+            </ul>
+        </div>
+        <div class="logout-btn">退出登录</div>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="panel-info" class="content-panel active">
+            <div class="header-bar">
+                <h1>修改主页介绍</h1>
+                <button class="btn-save" onclick="saveData('info')">保存更新</button>
+            </div>
+            <div class="form-group">
+                <label>主标题 (H1)</label>
+                <input type="text" id="input-title" value="助力意大利华人小店，7天极速转型，轻松赚老外的钱">
+            </div>
+            <div class="form-group">
+                <label>副标题描述 (Paragraph)</label>
+                <textarea id="input-desc" rows="4">专为美甲店、理发沙龙、餐饮打包店量身定制的高性价比数字化建站方案。帮您全自动接单、锁客，省去人工接电话的时间成本。</textarea>
+            </div>
+        </div>
+
+        <div id="panel-cases" class="content-panel">
+            <div class="header-bar">
+                <h1>交付案例管理</h1>
+                <button class="btn-save" onclick="addCase()">添加新案例</button>
+            </div>
+            <div class="form-group" style="background: var(--light); padding: 20px; border-radius: 12px;">
+                <label>新增案例名称</label>
+                <input type="text" id="case-name" placeholder="例如：米兰 DimSum Express 打包店">
+                <label style="margin-top: 10px;">案例简介</label>
+                <input type="text" id="case-text" placeholder="例如：打通本地老外主流流量，全自动接单">
+            </div>
+            
+            <h3>已有案例列表</h3>
+            <div class="case-list">
+                <div class="case-item">
+                    <div class="case-info">
+                        <h4>米兰某美甲沙龙</h4>
+                        <p>实现线上预约，锁客留存率提升 40%</p>
+                    </div>
+                    <button class="btn-danger">删除</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="panel-contact" class="content-panel">
+            <div class="header-bar">
+                <h1>联系方式与二维码</h1>
+                <button class="btn-save" onclick="saveData('contact')">保存更新</button>
+            </div>
+            <div class="form-group">
+                <label>微信号码</label>
+                <input type="text" id="input-wechat" value="Zero1_Studio">
+            </div>
+            <div class="form-group">
+                <label>更换微信二维码 (图片链接或上传)</label>
+                <input type="text" id="input-qr" placeholder="输入新的二维码图片路径...">
+                <p style="font-size: 0.8rem; color:#86868b; margin-top:5px;">当前使用的为系统的 Base64 默认内置图片。</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 切换左侧菜单逻辑
+        function switchTab(tabId) {
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('panel-' + tabId).classList.add('active');
+        }
+
+        // 模拟保存按钮提示
+        function saveData(type) {
+            alert(type + ' 数据保存成功！(目前为前端预览，下一步接入数据库实现真实修改)');
+        }
+
+        // 模拟添加案例
+        function addCase() {
+            var name = document.getElementById('case-name').value;
+            var text = document.getElementById('case-text').value;
+            if(!name) return alert('请输入案例名称');
+            alert('添加成功：' + name);
+        }
+    </script>
+</body>
+</html>
