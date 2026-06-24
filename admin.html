@@ -30,7 +30,7 @@
         .menu-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         .menu-item { padding: 12px 15px; border-radius: 12px; cursor: pointer; color: #a1a1a6; font-weight: 500; transition: all 0.2s; }
         .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.1); color: var(--white); }
-        .menu-item.active { background: var(--primary); }
+        .menu-item.active { background: var(--primary); color: var(--white); }
 
         /* 右侧内容区 */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; }
@@ -72,9 +72,9 @@
         <div>
             <div class="brand">Zero<span>1</span> Console</div>
             <ul class="menu-list">
-                <li class="menu-item active" onclick="switchTab('info')">基本介绍</li>
-                <li class="menu-item" onclick="switchTab('cases')">案例管理</li>
-                <li class="menu-item" onclick="switchTab('contact')">联系方式</li>
+                <li id="menu-info" class="menu-item active" onclick="switchTab('info')">基本介绍</li>
+                <li id="menu-cases" class="menu-item" onclick="switchTab('cases')">案例管理</li>
+                <li id="menu-contact" class="menu-item" onclick="switchTab('contact')">联系方式</li>
             </ul>
         </div>
     </div>
@@ -131,23 +131,31 @@
     </div>
 
     <script>
-        // 1. 初始化 Supabase 客户端连接 (填入你的真实数据)
-        const SUPABASE_URL = "https://ujdnygslntqfivkuzcmu.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZG55Z3NsbnRxZml2a3V6Y211Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3Njk3MDYsImV4cCI6MjA4NjM0NTcwNn0.8-bCst3h_V-qA9_uQzIunGZ_uOAt3yR-t1zB1fO1vWw"; 
+        // 1. 使用你备忘录里的正确配置（去掉了末尾多余的 /rest/v1/）
+        const SUPABASE_URL = "https://usawifozjkmgsyevtuzp.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzYXdpZm96amttZ3N5ZXZ0dXpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3Njk0MDUsImV4cCI6MjA4NjM0NTQwNX0.Ope-KJ2qqhx3vJMd0F7eGy36PUCpleNUEcPARf-IUgg"; 
         const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 页面初始化加载数据
         window.onload = function() {
             fetchSiteData();
             fetchPortfolioCases();
         };
 
-        // 核心功能：从云端数据库异步读取基础信息和联系方式
+        // 切换菜单栏视图逻辑（修复 iPad 点击选择问题）
+        function switchTab(tabId) {
+            // 清除所有高亮和隐藏所有面板
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
+            
+            // 精准控制激活
+            document.getElementById('menu-' + tabId).classList.add('active');
+            document.getElementById('panel-' + tabId).classList.add('active');
+        }
+
+        // 从云端数据库异步读取基础信息和联系方式
         async function fetchSiteData() {
             let { data, error } = await supabase.from('site_info').select('*').eq('id', 'zero1_main').single();
-            if (error) {
-                console.error("加载失败:", error);
-            } else if (data) {
+            if (data) {
                 document.getElementById('input-title').value = data.title || '';
                 document.getElementById('input-desc').value = data.description || '';
                 document.getElementById('input-wechat').value = data.wechat || '';
@@ -155,11 +163,12 @@
             }
         }
 
-        // 核心功能：从云端数据库异步读取案例列表
+        // 从云端数据库异步读取案例列表
         async function fetchPortfolioCases() {
             let { data, error } = await supabase.from('portfolio_cases').select('*').order('id', { ascending: false });
             const listContainer = document.getElementById('dom-case-list');
-            listContainer.innerHTML = ''; // 清空旧列表
+            if(!listContainer) return;
+            listContainer.innerHTML = ''; 
             
             if (data) {
                 data.forEach(item => {
@@ -176,7 +185,7 @@
             }
         }
 
-        // 核心功能：保存修改后的介绍字样到数据库
+        // 保存修改后的介绍字样到数据库
         async function saveSiteInfo() {
             const btn = document.getElementById('btn-save-info');
             btn.innerText = "正在云端保存...";
@@ -193,7 +202,7 @@
             else alert("🎉 官网主页介绍已实时同步更新！");
         }
 
-        // 核心功能：保存修改后的联系方式到数据库
+        // 保存修改后的联系方式到数据库
         async function saveContactInfo() {
             const btn = document.getElementById('btn-save-contact');
             btn.innerText = "正在云端保存...";
@@ -210,7 +219,7 @@
             else alert("🎉 微信及二维码信息已成功云同步！");
         }
 
-        // 核心功能：往数据库新增一条案例记录
+        // 往数据库新增一条案例记录
         async function addPortfolioCase() {
             const name = document.getElementById('case-name').value;
             const desc = document.getElementById('case-desc').value;
@@ -223,27 +232,19 @@
                 document.getElementById('case-name').value = '';
                 document.getElementById('case-desc').value = '';
                 alert("🎉 新案例已成功上架！");
-                fetchPortfolioCases(); // 刷新列表显示
+                fetchPortfolioCases(); 
             }
         }
 
-        // 核心功能：从数据库彻底删除某条案例
+        // 从数据库彻底删除某条案例
         async function deleteCase(id) {
             if(!confirm('确定要删除这个交付案例吗？该操作不可逆。')) return;
             const { error } = await supabase.from('portfolio_cases').delete().eq('id', id);
             if (error) alert("删除失败：" + error.message);
             else {
                 alert("案例已安全下架。");
-                fetchPortfolioCases(); // 刷新列表
+                fetchPortfolioCases(); 
             }
-        }
-
-        // 切换菜单栏视图
-        function switchTab(tabId) {
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-            document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            document.getElementById('panel-' + tabId).classList.add('active');
         }
     </script>
 </body>
