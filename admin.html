@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Zero1 Studio | 控制台</title>
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icon.png.JPG">
@@ -21,19 +21,21 @@
             --success: #34c759;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-        body { background-color: var(--light); color: var(--dark); display: flex; height: 100vh; overflow: hidden; }
+        body { background-color: var(--light); color: var(--dark); display: flex; height: 100vh; overflow: hidden; -webkit-user-select: none; }
 
         /* 左侧侧边栏 */
-        .sidebar { width: 260px; background: var(--dark); color: var(--white); padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .sidebar { width: 260px; background: var(--dark); color: var(--white); padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; flex-shrink: 0; }
         .brand { font-size: 1.4rem; font-weight: 700; margin-bottom: 40px; padding-left: 10px; }
         .brand span { color: var(--primary); }
         .menu-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .menu-item { padding: 12px 15px; border-radius: 12px; cursor: pointer; color: #a1a1a6; font-weight: 500; transition: all 0.2s; }
+        
+        /* 优化 iPad 上的触控体验 */
+        .menu-item { padding: 15px 20px; border-radius: 12px; cursor: pointer; color: #a1a1a6; font-weight: 500; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
         .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.1); color: var(--white); }
         .menu-item.active { background: var(--primary); color: var(--white); }
 
         /* 右侧内容区 */
-        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .header-bar h1 { font-size: 1.8rem; font-weight: 700; }
         
@@ -47,13 +49,13 @@
         .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: var(--white); outline: none; }
         
         /* 案例卡片样式 */
-        .case-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .case-list { margin-top: 15px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
         .case-item { display: flex; justify-content: space-between; align-items: center; padding: 18px; background: var(--light); border-radius: 12px; }
         .case-info h4 { font-weight: 600; font-size: 1.05rem; }
         .case-info p { font-size: 0.9rem; color: #86868b; margin-top: 4px; }
 
         /* 按钮控制 */
-        .btn-save { background: var(--primary); color: var(--white); padding: 12px 30px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; }
+        .btn-save { background: var(--primary); color: var(--white); padding: 12px 30px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
         .btn-save:disabled { background: #a1a1a6; }
         .btn-danger { background: #ff453a; color: white; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 500; }
 
@@ -101,7 +103,7 @@
                 <h1>交付案例管理</h1>
                 <button class="btn-save" onclick="addPortfolioCase()">发布新案例</button>
             </div>
-            <div class="form-group" style="background: var(--light); padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+            <div class="form-group" style="background: var(--light); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
                 <label>新增案例名称</label>
                 <input type="text" id="case-name" placeholder="例如：米兰打包店智能点餐系统">
                 <label style="margin-top: 12px;">案例简介说明</label>
@@ -109,8 +111,7 @@
             </div>
             
             <h3>已有案例列表</h3>
-            <div class="case-list" id="dom-case-list">
-                </div>
+            <div class="case-list" id="dom-case-list"></div>
         </div>
 
         <div id="panel-contact" class="content-panel">
@@ -131,95 +132,100 @@
     </div>
 
     <script>
-        // 1. 使用你备忘录里的正确配置（去掉了末尾多余的 /rest/v1/）
+        // 初始化 Supabase 连接
         const SUPABASE_URL = "https://usawifozjkmgsyevtuzp.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzYXdpZm96amttZ3N5ZXZ0dXpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3Njk0MDUsImV4cCI6MjA4NjM0NTQwNX0.Ope-KJ2qqhx3vJMd0F7eGy36PUCpleNUEcPARf-IUgg"; 
         const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        window.onload = function() {
+        // 页面就绪自动拉取云端数据
+        window.addEventListener('DOMContentLoaded', () => {
             fetchSiteData();
             fetchPortfolioCases();
-        };
+        });
 
-        // 切换菜单栏视图逻辑（修复 iPad 点击选择问题）
+        // 切换菜单栏视图逻辑
         function switchTab(tabId) {
-            // 清除所有高亮和隐藏所有面板
             document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
             document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
             
-            // 精准控制激活
             document.getElementById('menu-' + tabId).classList.add('active');
             document.getElementById('panel-' + tabId).classList.add('active');
         }
 
-        // 从云端数据库异步读取基础信息和联系方式
+        // 从云端数据库读取基础介绍
         async function fetchSiteData() {
-            let { data, error } = await supabase.from('site_info').select('*').eq('id', 'zero1_main').single();
-            if (data) {
-                document.getElementById('input-title').value = data.title || '';
-                document.getElementById('input-desc').value = data.description || '';
-                document.getElementById('input-wechat').value = data.wechat || '';
-                document.getElementById('input-qr').value = data.qr_code_url || '';
-            }
+            try {
+                let { data, error } = await supabase.from('site_info').select('*').eq('id', 'zero1_main').maybeSingle();
+                if (data) {
+                    document.getElementById('input-title').value = data.title || '';
+                    document.getElementById('input-desc').value = data.description || '';
+                    document.getElementById('input-wechat').value = data.wechat || '';
+                    document.getElementById('input-qr').value = data.qr_code_url || '';
+                }
+            } catch (err) { console.error(err); }
         }
 
-        // 从云端数据库异步读取案例列表
+        // 从云端数据库读取案例列表
         async function fetchPortfolioCases() {
-            let { data, error } = await supabase.from('portfolio_cases').select('*').order('id', { ascending: false });
-            const listContainer = document.getElementById('dom-case-list');
-            if(!listContainer) return;
-            listContainer.innerHTML = ''; 
-            
-            if (data) {
-                data.forEach(item => {
-                    listContainer.innerHTML += `
-                        <div class="case-item" id="case-${item.id}">
-                            <div class="case-info">
-                                <h4>${item.name}</h4>
-                                <p>${item.description}</p>
+            try {
+                let { data, error } = await supabase.from('portfolio_cases').select('*').order('id', { ascending: false });
+                const listContainer = document.getElementById('dom-case-list');
+                if(!listContainer) return;
+                listContainer.innerHTML = ''; 
+                
+                if (data && data.length > 0) {
+                    data.forEach(item => {
+                        listContainer.innerHTML += `
+                            <div class="case-item" id="case-${item.id}">
+                                <div class="case-info">
+                                    <h4>${item.name}</h4>
+                                    <p>${item.description}</p>
+                                </div>
+                                <button class="btn-danger" onclick="deleteCase(${item.id})">删除</button>
                             </div>
-                            <button class="btn-danger" onclick="deleteCase(${item.id})">删除</button>
-                        </div>
-                    `;
-                });
-            }
+                        `;
+                    });
+                } else {
+                    listContainer.innerHTML = '<p style="color:#86868b;font-size:0.9rem;padding:10px;">暂无案例，请在上方添加。</p>';
+                }
+            } catch (err) { console.error(err); }
         }
 
-        // 保存修改后的介绍字样到数据库
+        // 保存介绍字样
         async function saveSiteInfo() {
             const btn = document.getElementById('btn-save-info');
-            btn.innerText = "正在云端保存...";
+            btn.innerText = "正在保存...";
             btn.disabled = true;
 
             const title = document.getElementById('input-title').value;
             const desc = document.getElementById('input-desc').value;
 
-            const { error } = await supabase.from('site_info').update({ title: title, description: desc }).eq('id', 'zero1_main');
+            const { error } = await supabase.from('site_info').upsert({ id: 'zero1_main', title: title, description: desc });
             
             btn.innerText = "保存更新";
             btn.disabled = false;
-            if (error) alert("更新失败：" + error.message);
-            else alert("🎉 官网主页介绍已实时同步更新！");
+            if (error) alert("保存失败，请检查数据库 RLS 权限：" + error.message);
+            else alert("🎉 官网主页介绍已实时同步至云端！");
         }
 
-        // 保存修改后的联系方式到数据库
+        // 保存联系方式
         async function saveContactInfo() {
             const btn = document.getElementById('btn-save-contact');
-            btn.innerText = "正在云端保存...";
+            btn.innerText = "正在保存...";
             btn.disabled = true;
 
             const wechat = document.getElementById('input-wechat').value;
             const qr = document.getElementById('input-qr').value;
 
-            const { error } = await supabase.from('site_info').update({ wechat: wechat, qr_code_url: qr }).eq('id', 'zero1_main');
+            const { error } = await supabase.from('site_info').upsert({ id: 'zero1_main', wechat: wechat, qr_code_url: qr });
             
             btn.innerText = "保存更新";
             btn.disabled = false;
-            if (error) alert("更新失败：" + error.message);
-            else alert("🎉 微信及二维码信息已成功云同步！");
+            if (error) alert("保存失败：" + error.message);
+            else alert("🎉 微信联系方式已成功云同步！");
         }
 
-        // 往数据库新增一条案例记录
+        // 新增案例
         async function addPortfolioCase() {
             const name = document.getElementById('case-name').value;
             const desc = document.getElementById('case-desc').value;
@@ -236,13 +242,12 @@
             }
         }
 
-        // 从数据库彻底删除某条案例
+        // 删除某条案例
         async function deleteCase(id) {
-            if(!confirm('确定要删除这个交付案例吗？该操作不可逆。')) return;
+            if(!confirm('确定要删除这个案例吗？')) return;
             const { error } = await supabase.from('portfolio_cases').delete().eq('id', id);
             if (error) alert("删除失败：" + error.message);
             else {
-                alert("案例已安全下架。");
                 fetchPortfolioCases(); 
             }
         }
