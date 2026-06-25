@@ -58,7 +58,7 @@
         .icon-switch { width: 36px; height: 36px; border: 4px solid var(--primary); border-radius: 50%; border-top-color: transparent; position: relative; display: flex; justify-content: center; }
         .icon-switch::after { content: ''; width: 4px; height: 16px; background: var(--primary); border-radius: 2px; position: absolute; top: -4px; }
 
-        /* 🛠️ 微信双通道弹窗高级样式调优 */
+        /* 微信双通道弹窗高级样式调优 */
         .wechat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .wechat-modal.show { opacity: 1; pointer-events: auto; }
         .wechat-box { background: white; padding: 30px 24px; border-radius: 28px; text-align: center; max-width: 380px; width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.25); transform: scale(0.9); transition: transform 0.3s ease; }
@@ -87,21 +87,6 @@
 
         .btn-close-modal { background: var(--light); color: var(--dark); padding: 12px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; width: 100%; transition: background 0.2s; }
         .btn-close-modal:hover { background: #e2e2e7; }
-
-        /* GDPR 悬浮弹窗 */
-        .gdpr-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150%); width: 90%; max-width: 500px; background-color: #ffffff; color: #333333; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 9999; display: flex; flex-direction: column; gap: 12px; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(0,113,227,0.15); }
-        .gdpr-banner.show { transform: translateX(-50%) translateY(0); }
-        .gdpr-text { font-size: 0.85rem; line-height: 1.4; text-align: left; }
-        .gdpr-btn-group { display: flex; justify-content: flex-end; gap: 10px; }
-        .gdpr-btn-accept { padding: 8px 20px; background-color: var(--primary); color: #ffffff; font-size: 0.85rem; font-weight: bold; border: none; border-radius: 20px; cursor: pointer; transition: background 0.2s; }
-        .gdpr-btn-accept:hover { background-color: var(--dark); }
-
-        @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            .hero h1 { font-size: 2rem; margin-top: 20px; }
-            .hero p { font-size: 1.05rem; }
-            .gdpr-banner { bottom: 10px; padding: 15px; }
-        }
     </style>
 </head>
 <body>
@@ -124,7 +109,7 @@
     <section class="hero">
         <div class="icon-badge"></div>
         <h1>助力意大利华人小店<br>7天极速建站，打造您的专属线上橱窗</h1>
-        <p>提供多语言高保真设计、无缝外卖社交媒体平台整合</p>
+        <p>提供多语言高保真设计、无缝外卖与社交媒体平台整合</p>
         <button onclick="openWeChatModal(event)" class="btn-cta">添加微信，免费获取定制方案</button>
     </section>
 
@@ -152,15 +137,15 @@
 
             <div class="qr-display-container">
                 <div class="qr-content active" id="qr-personal">
-                    <img src="https://i.ibb.co/f55c6912-a6bb-40e3-b787-115b57456ac5/IMG-0775.png" alt="Personal WeChat QR">
+                    <img src="IMG-0963.jpeg" alt="Personal WeChat QR">
                 </div>
                 <div class="qr-content" id="qr-official">
-                    <img src="https://i.ibb.co/4f8fea8d-817c-440a-9576-21d79c719967/IMG-0776.png" alt="Official Account QR">
+                    <img src="IMG-0961.jpeg" alt="Official Account QR">
                 </div>
             </div>
 
             <div class="copy-id-bar" onclick="copyWeChatID('zero1studio')" title="点击复制微信号">
-                <i class="fa-regular fa-copy"></i> 微信号: <span id="wechat-id-text">zero1studio</span>
+                微信号: <span id="wechat-id-text">zero1studio</span>
             </div>
 
             <button class="btn-close-modal" onclick="closeWeChatModal(event)">关闭</button>
@@ -168,7 +153,7 @@
     </div>
 
     <div id="toastTip" class="toast-tip">
-        <i class="fa-solid fa-circle-check" style="color:var(--wechat-green);"></i> Copiato con successo!
+        Copierò con successo!
     </div>
 
     <script>
@@ -181,13 +166,13 @@
             document.getElementById('wechatModal').classList.remove('show');
         }
 
-        // 核心：二维码无缝选项卡切换逻辑
+        // 二维码无缝选项卡切换逻辑
         function switchQR(type) {
             const tabs = document.querySelectorAll('.tab-btn');
             const contents = document.querySelectorAll('.qr-content');
             
             tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => d = c.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
             
             if(type === 'personal') {
                 tabs[0].classList.add('active');
@@ -198,7 +183,7 @@
             }
         }
 
-        // 核心：高保真点击微信号无感自动复制与 Toast 动画回馈
+        // 点击微信号自动复制与提示回馈
         function copyWeChatID(text) {
             navigator.clipboard.writeText(text).then(() => {
                 const toast = document.getElementById('toastTip');
@@ -207,7 +192,7 @@
                     toast.classList.remove('show');
                 }, 2000);
             }).catch(err => {
-                console.error('Errore durante la copia: ', err);
+                console.error('Errore: ', err);
             });
         }
     </script>
