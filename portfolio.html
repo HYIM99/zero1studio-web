@@ -12,7 +12,7 @@
             --text-muted: #86868b;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        body { background-color: var(--light); color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; padding-bottom: 20px; }
         
         /* 导航栏 */
         header { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.1); }
@@ -29,12 +29,13 @@
         
         .btn-cta { display: inline-block; background: var(--primary); color: white; padding: 8px 18px; border-radius: 980px; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
 
-        /* 案例区专有头部空间调整 */
+        /* 案例区布局调优 */
         .portfolio-section { max-width: 1000px; margin: 140px auto 80px; padding: 20px; }
         .section-title { text-align: center; font-size: 2.3rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -0.5px; }
         .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 50px; }
         
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        /* 4案例完美排版网格 */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 30px; }
         
         /* 交付案例卡片样式 */
         .portfolio-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.02); transition: all 0.3s; display: flex; flex-direction: column; }
@@ -46,23 +47,24 @@
         .dot.red { background: #ff5f56; }
         .dot.yellow { background: #ffbd2e; }
         .dot.green { background: #27c93f; }
-        .browser-url { background: white; color: var(--text-muted); font-size: 0.75rem; padding: 3px 15px; border-radius: 6px; flex-grow: 1; margin-left: 10px; text-align: left; font-family: monospace; border: 1px solid rgba(0,0,0,0.03); }
+        .browser-url { background: white; color: var(--text-muted); font-size: 0.75rem; padding: 3px 15px; border-radius: 6px; flex-grow: 1; margin-left: 10px; text-align: left; font-family: monospace; border: 1px solid rgba(0,0,0,0.03); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         /* 卡片大图模拟区域 */
         .portfolio-visual { height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 20px; text-align: center; position: relative; }
         .brand-logo-circle { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.3); }
-        .brand-title { font-size: 1.6rem; font-weight: 700; }
+        .brand-title { font-size: 1.5rem; font-weight: 700; }
 
-        /* 案例特定颜色 */
+        /* 案例特定背景颜色 */
         .bg-domochi { background: linear-gradient(135deg, #e54d58, #ff6b76); }
         .bg-dimsum { background: linear-gradient(135deg, #5c2016, #7d3225); }
         .bg-animabella { background: linear-gradient(135deg, #111111, #2d2d2d); }
+        .bg-rotonda { background: linear-gradient(135deg, #8B5A2B, #CD853F); } /* 优雅咖啡轻食色系 */
 
         .portfolio-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .tag { display: inline-block; background: #e8f4ff; color: var(--primary); padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; margin-bottom: 12px; align-self: flex-start; }
         .tag.tag-dark { background: #f5f5f7; color: var(--dark); }
         .portfolio-body h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
-        .portfolio-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
+        .portfolio-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
         
         .btn-view { display: inline-flex; align-items: center; justify-content: center; background: var(--dark); color: white; padding: 10px 20px; border-radius: 12px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: background 0.2s; margin-top: auto; }
         .btn-view:hover { background: var(--primary); }
@@ -79,7 +81,6 @@
 </head>
 <body>
 
-    <!-- 导航栏 -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo-container">
@@ -95,13 +96,11 @@
         </div>
     </header>
 
-    <!-- 核心案例展示区 -->
     <section class="portfolio-section">
         <h1 class="section-title">意大利本地商家交付案例展示</h1>
         <p class="section-subtitle">从高颜值精美橱窗到全自动预约系统，帮助华人老板高效锁客</p>
         
         <div class="portfolio-grid">
-            <!-- 案例一：Dōmochi -->
             <div class="portfolio-card">
                 <div class="web-browser-bar">
                     <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
@@ -119,7 +118,6 @@
                 </div>
             </div>
 
-            <!-- 案例二：DimSum Express -->
             <div class="portfolio-card">
                 <div class="web-browser-bar">
                     <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
@@ -137,7 +135,6 @@
                 </div>
             </div>
 
-            <!-- 案例三：Anima Bella -->
             <div class="portfolio-card">
                 <div class="web-browser-bar">
                     <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
@@ -154,28 +151,26 @@
                     <a href="https://www.animabellanails.it" target="_blank" class="btn-view">体验在线预约 →</a>
                 </div>
             </div>
-            
-            <!-- 案例四：Bar della rotonda -->
+
             <div class="portfolio-card">
                 <div class="web-browser-bar">
                     <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                    <div class="browser-url">https://bardellarotonda.vercel.app/</div>
+                    <div class="browser-url">bardellarotonda.vercel.app</div>
                 </div>
-                <div class="portfolio-visual bg-bardellarotonda">
-                    <div class="brand-logo-circle">🍺</div>
-                    <div class="brand-title">Bar della Rotonda</div>
+                <div class="portfolio-visual bg-rotonda">
+                    <div class="brand-logo-circle">☕️</div>
+                    <div class="brand-title">Bar Della Rotonda</div>
                 </div>
                 <div class="portfolio-body">
-                    <span class="tag tag-dark">酒吧 / 烟吧 / 博彩</span>
-                    <h3>Bar della Rotonda</h3>
-                    <p>展示产品，服务，本地天气，打造本地服务网点</p>
-                    <a href="https://bardellarotonda.vercel.app/" target="_blank" class="btn-view">浏览网页 →</a>
+                    <span class="tag">酒吧 / 烟吧 / 博彩</span>
+                    <h3>Bar Della Rotonda</h3>
+                    <p>专为本地高频消费酒吧定制的轻量级数字平台。集成了清晰直观的电子看板与时段特色推介，帮助传统街区老店快速完成线上流量沉淀与合规转型。</p>
+                    <a href="https://bardellarotonda.vercel.app/" target="_blank" class="btn-view">查看数字平台 →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer>
         <div class="icon-switch"></div>
         <p>© 2026 Zero1 Studio. Tutti i diritti riservati.</p>
