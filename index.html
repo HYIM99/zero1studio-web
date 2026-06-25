@@ -6,7 +6,6 @@
     <title>Zero1 Studio | 意大利华人小店极速建</title>
     
     <link rel="manifest" href="/manifest.json">
-    
     <link rel="apple-touch-icon" href="/icon.png.JPG">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -59,16 +58,34 @@
         .icon-switch { width: 36px; height: 36px; border: 4px solid var(--primary); border-radius: 50%; border-top-color: transparent; position: relative; display: flex; justify-content: center; }
         .icon-switch::after { content: ''; width: 4px; height: 16px; background: var(--primary); border-radius: 2px; position: absolute; top: -4px; }
 
-        /* 微信弹窗高级样式 */
+        /* 🛠️ 微信双通道弹窗高级样式调优 */
         .wechat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .wechat-modal.show { opacity: 1; pointer-events: auto; }
-        .wechat-box { background: white; padding: 30px; border-radius: 24px; text-align: center; max-width: 320px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s ease; }
+        .wechat-box { background: white; padding: 30px 24px; border-radius: 28px; text-align: center; max-width: 380px; width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.25); transform: scale(0.9); transition: transform 0.3s ease; }
         .wechat-modal.show .wechat-box { transform: scale(1); }
-        .wechat-box h3 { font-size: 1.25rem; margin-bottom: 5px; font-weight: 700; }
-        .wechat-box p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
-        .qr-code { width: 220px; height: auto; background: #fff; margin: 0 auto 20px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); padding: 5px; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
-        .qr-code img { width: 100%; height: auto; display: block; }
-        .btn-close-modal { background: var(--light); color: var(--dark); padding: 10px 20px; border-radius: 10px; border: none; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .wechat-box h3 { font-size: 1.35rem; margin-bottom: 5px; font-weight: 800; color: var(--dark); }
+        .wechat-box p.modal-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
+        
+        /* 选项卡式二维码展示区 */
+        .qr-tabs { display: flex; background: #f5f5f7; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
+        .tab-btn { flex: 1; border: none; background: transparent; padding: 8px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-radius: 9px; cursor: pointer; transition: all 0.2s; }
+        .tab-btn.active { background: white; color: var(--wechat-green); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        
+        .qr-display-container { position: relative; width: 200px; height: 200px; margin: 0 auto 15px; }
+        .qr-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; border-radius: 14px; border: 1px solid rgba(0,0,0,0.06); padding: 6px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .qr-content.active { display: block; }
+        .qr-content img { width: 100%; height: auto; display: block; object-fit: contain; }
+        
+        /* 复制ID交互区样式 */
+        .copy-id-bar { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: #e8f4ff; color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; cursor: pointer; transition: all 0.2s; border: 1px dashed rgba(0,113,227,0.3); }
+        .copy-id-bar:hover { background: var(--primary); color: white; transform: translateY(-1px); }
+        .copy-id-bar i { font-size: 0.9rem; }
+        
+        /* 全局高阶吐司提示层 */
+        .toast-tip { position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 22px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; z-index: 11000; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; display: flex; align-items: center; gap: 8px; }
+        .toast-tip.show { opacity: 1; }
+
+        .btn-close-modal { background: var(--light); color: var(--dark); padding: 12px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; width: 100%; transition: background 0.2s; }
         .btn-close-modal:hover { background: #e2e2e7; }
 
         /* GDPR 悬浮弹窗 */
@@ -81,7 +98,7 @@
 
         @media (max-width: 768px) {
             .nav-menu { display: none; }
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2rem; margin-top: 20px; }
             .hero p { font-size: 1.05rem; }
             .gdpr-banner { bottom: 10px; padding: 15px; }
         }
@@ -98,22 +115,22 @@
             <ul class="nav-menu">
                 <li><a href="index.html" class="active">首页</a></li>
                 <li><a href="portfolio.html">交付案例</a></li>
-                <li><a href="#" onclick="openWeChatModal(event)">微信咨询</a></li>
+                <li><a href="#" onclick="openWeChatModal(event)">联系我们</a></li>
             </ul>
-            <button onclick="openWeChatModal(event)" class="btn-cta" style="padding: 8px 18px; font-size: 0.85rem; box-shadow: none;">微信咨询</button>
+            <button onclick="openWeChatModal(event)" class="btn-cta" style="padding: 8px 18px; font-size: 0.85rem; box-shadow: none;">立即咨询</button>
         </div>
     </header>
 
     <section class="hero">
         <div class="icon-badge"></div>
-        <h1>助力意大利华人小店<br>7天极速建站，为您的打造一个专属网站</h1>
-        <p>免费咨询，快速建站</p>
+        <h1>助力意大利华人小店<br>7天极速建站，打造您的专属线上橱窗</h1>
+        <p>提供多语言高保真设计、无缝外卖平台整合与智能预约系统</p>
         <button onclick="openWeChatModal(event)" class="btn-cta">添加微信，免费获取定制方案</button>
     </section>
 
     <section class="portfolio-intro">
         <h2>意国本土商家的信赖之选</h2>
-        <p>点击下方按钮查看完整精选交付案例。</p>
+        <p>从现代甜品橱窗到美业全自动预约系统，点击下方按钮查看精选交付案例。</p>
         <a href="portfolio.html" class="btn-secondary">浏览全部真实案例 →</a>
     </section>
 
@@ -125,19 +142,74 @@
 
     <div id="wechatModal" class="wechat-modal" onclick="closeWeChatModal(event)">
         <div class="wechat-box" onclick="event.stopPropagation()">
-            <h3>添加工作室微信</h3>
-            <p>长按识别或手机微信扫一扫</p>
-            <div class="qr-code">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAMgCAYAAADscf9bAAAAAXNSR0IArs4c6QAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAACWKADAAQAAAABAAADIAAAAADbV/bBAABAAElEQVR4AeydB7idRZX+v9N7Se89kAQIJaEECOlFUAsiooJid8X+VXTsa8feccXesI86NhS7qKiogoKAdOm9pPee5PZ/+Z+Z95zb3Htyb7IhkHvO85yXvHeXb96ZOfvbeWf2XisEwzAoN66BcgPlBsoNlBsoN1BuoNxAuYFyA+UGfvsN+H/7M5YblBsoN1BuoNxAuYFyA+UGyg2UGyg3oDdQDrByI5QbKDdQbqDcqNyA3kC5gXID5QbKDXzoNlAO0D70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNlAOsD70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNlAOsD70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNlAOsD70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNlAOsD70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNlAOsD70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNlAOsD70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNlAOsD70WygnUG6g3EC5gXID5QbKDZQbKDdQbqAcYOU2KDdQbqDcoNyg3EC5gXID5QbKDXzoNuD/pB8qZ6/w79fA/1vP9b9/+4MffvH8p3/R5/7Nf/u3/3vV/Lff8Ue/+Y/n+K/4qf89vV7//r8X1/zDff38637+6979r/vWdZz/9rXP5pX/2/V7v2f8v7/+W88R78/vOef12v9z3fP+7998V8/T/6lq7q/X8jXv7/4O/9uXWbX6e+v176978zW/Xv8Xf8//vP4Tf/O//qN//5+u59drVb9f93V//671d/Hre/M9Gv/Zzef5vV7f//Xf3P/v9ffv7b6r5+T9X7uOf7/mZ73m77uunqfep/t9r/qerV/X9eI/Vf/+33O9ep1/Uf1z/+qenw/eH8/D+8f3yvWq9en1/HyuH1+rnqf7evwZfr5/feq+vPeXWb/7Wqf769/W/6N/rvrvv3ff9R9fj/etVf8e/9E6f+67mPfd+I/++8Xvf/O///b98b9Wf9u/Xf//7m9dr+pffvW+vP6/fS/+M76v+K/V+vR18X3F+/e/fX7/26m/f6+Pz73mZ6p78Z+v/ffbXvvU/W/X69U//Odfqf+u6//G/3v+/6r8Zrxm/9n6/+73qP6vXtP6j/8df969/8/39XvR89TrXf8T/+O9Xv7dfv36r/1nN//tX3U/fUf8NfvS69zP39e/1v/R9X//zbeZ99T9bve6rvuP/q//M96re97Vf/7b/+f/491Xf1dfA917/nvF/+/q3qPf3mue/+W/u+Vpv87rf+l7jX6v38d/T78ev379/D/b/m9enXsvvjd+Hfv98r6p99Z8bf/31f/Gff/P61K/3q++t1+f19V/f432rXvev9erXvOaf1L/O98f普/6u9V/f432rXvev9erXvOaf1L/O98fPr/6N14n3u+fX91b//fX34b/xv6336vVqvbeXfT/1ZfV83NfD+F8P91vPxW9e18bV9bM/r7V2PVdv6/q7efb6d/5N/f/Gf3bVbeV14tf6P9bX8TX8e3t+n8br8rP6Wv5t67/9b+r7rn9W76v6rfivvFeP8Xv7uF7X96X/xvfy317Pe4zfl6/V/6zXveZrcf9举个例子，你的 index.html 看起来应该像这样： -->
-    </body>
-<script>
-    // 微信弹窗控制 JS 代码（保持你原来的逻辑）
-    function openWeChatModal(e) {
-        e.preventDefault();
-        document.getElementById('wechatModal').classList.add('show');
-    }
-    function closeWeChatModal(e) {
-        document.getElementById('wechatModal').classList.remove('show');
-    }
-</script>
+            <h3>联系 Zero1 Studio</h3>
+            <p class="modal-sub">长按识别二维码或点击微信号复制</p>
+            
+            <div class="qr-tabs">
+                <button class="tab-btn active" onclick="switchQR('personal')">工作室微信</button>
+                <button class="tab-btn" onclick="switchQR('official')">官方公众号</button>
+            </div>
+
+            <div class="qr-display-container">
+                <div class="qr-content active" id="qr-personal">
+                    <img src="https://i.ibb.co/f55c6912-a6bb-40e3-b787-115b57456ac5/IMG-0775.png" alt="Personal WeChat QR">
+                </div>
+                <div class="qr-content" id="qr-official">
+                    <img src="https://i.ibb.co/4f8fea8d-817c-440a-9576-21d79c719967/IMG-0776.png" alt="Official Account QR">
+                </div>
+            </div>
+
+            <div class="copy-id-bar" onclick="copyWeChatID('zero1studio')" title="点击复制微信号">
+                <i class="fa-regular fa-copy"></i> 微信号: <span id="wechat-id-text">zero1studio</span>
+            </div>
+
+            <button class="btn-close-modal" onclick="closeWeChatModal(event)">关闭</button>
+        </div>
+    </div>
+
+    <div id="toastTip" class="toast-tip">
+        <i class="fa-solid fa-circle-check" style="color:var(--wechat-green);"></i> Copiato con successo!
+    </div>
+
+    <script>
+        // 弹窗状态控制
+        function openWeChatModal(e) {
+            e.preventDefault();
+            document.getElementById('wechatModal').classList.add('show');
+        }
+        function closeWeChatModal(e) {
+            document.getElementById('wechatModal').classList.remove('show');
+        }
+
+        // 核心：二维码无缝选项卡切换逻辑
+        function switchQR(type) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.qr-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => d = c.classList.remove('active'));
+            
+            if(type === 'personal') {
+                tabs[0].classList.add('active');
+                document.getElementById('qr-personal').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('qr-official').classList.add('active');
+            }
+        }
+
+        // 核心：高保真点击微信号无感自动复制与 Toast 动画回馈
+        function copyWeChatID(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toastTip');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Errore durante la copia: ', err);
+            });
+        }
+    </script>
+</body>
 </html>
