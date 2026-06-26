@@ -54,4 +54,231 @@
         .browser-url { background: #ffffff; color: var(--text-muted); font-size: 0.8rem; padding: 5px 20px; border-radius: 8px; flex-grow: 1; margin-left: 15px; text-align: left; font-family: -apple-system, sans-serif; letter-spacing: 0.3px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.01); }
 
         /* 📸 高清大图效果区 */
-        .portfolio-visual { height: 280px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f5
+        .portfolio-visual { height: 280px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f5f5f7; }
+        .portfolio-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* 📋 案例文字与双按钮排版区 */
+        .portfolio-body { padding: 28px 24px 24px; flex-grow: 1; display: flex; flex-direction: column; }
+        .tag { display: inline-block; background: #f5f5f7; color: #1d1d1f; padding: 5px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-bottom: 14px; align-self: flex-start; }
+        .portfolio-body h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; color: var(--dark); }
+        .portfolio-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.55; margin-bottom: 25px; font-weight: 400; flex-grow: 1; }
+        
+        /* 双按钮交互区 */
+        .card-action-row { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+        .btn-action-primary { display: inline-flex; align-items: center; justify-content: center; background: var(--dark); color: white; padding: 12px 24px; border-radius: 14px; text-decoration: none; font-size: 0.95rem; font-weight: 700; transition: background 0.2s; }
+        .btn-action-primary:hover { background: var(--primary); }
+        .btn-action-pdf { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #f5f5f7; color: var(--dark); padding: 12px 24px; border-radius: 14px; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; border: 1px solid rgba(0,0,0,0.02); }
+        .btn-action-pdf:hover { background: #e2e2e7; }
+
+        footer { max-width: 1140px; margin: 0 auto; padding: 60px 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid #e5e5ea; display: flex; justify-content: space-between; align-items: center; }
+        footer p.studio-tag { font-weight: 700; color: var(--dark); }
+
+        /* 🛠️ 微信弹窗面板 */
+        .wechat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .wechat-modal.show { opacity: 1; pointer-events: auto; }
+        .wechat-box { background: white; padding: 35px 28px; border-radius: 28px; text-align: center; max-width: 360px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .wechat-modal.show .wechat-box { transform: scale(1); }
+        .wechat-box h3 { font-size: 1.4rem; margin-bottom: 6px; font-weight: 800; }
+        .wechat-box p.modal-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px; }
+        .qr-tabs { display: flex; background: #f5f5f7; padding: 4px; border-radius: 12px; margin-bottom: 24px; }
+        .tab-btn { flex: 1; border: none; background: transparent; padding: 9px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-radius: 9px; cursor: pointer; transition: all 0.2s; }
+        .tab-btn.active { background: white; color: var(--wechat-green); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .qr-display-container { position: relative; width: 210px; height: 210px; margin: 0 auto 20px; }
+        .qr-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); padding: 6px; background: #fff; }
+        .qr-content.active { display: block; }
+        .qr-content img { width: 100%; height: 100%; display: block; object-fit: contain; }
+        .copy-id-bar { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: #e8f4ff; color: var(--primary); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 24px; cursor: pointer; transition: all 0.2s; border: 1px dashed rgba(0,113,227,0.25); }
+        .copy-id-bar:hover { background: var(--primary); color: white; }
+        .toast-tip { position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: white; padding: 12px 24px; border-radius: 24px; font-size: 0.85rem; font-weight: 600; z-index: 11000; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; display: flex; align-items: center; gap: 8px; }
+        .toast-tip.show { opacity: 1; }
+        .btn-close-modal { background: var(--light); color: var(--dark); padding: 12px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; width: 100%; }
+
+        @media (max-width: 900px) {
+            .portfolio-grid { grid-template-columns: 1fr; gap: 45px; }
+            .section-title { font-size: 2.4rem; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-container">
+                <div class="logo-text">Zero<span>1</span></div>
+                <div class="logo-sub">Studio</div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="portfolio.html" class="active">交付案例</a></li>
+                <li><a href="#" onclick="openWeChatModal(event)">联系我们</a></li>
+            </ul>
+            <button onclick="openWeChatModal(event)" class="btn-cta">立即咨询</button>
+        </div>
+    </header>
+
+    <section class="portfolio-section">
+        <h1 class="section-title">Selected Works.</h1>
+        <p class="section-subtitle">助力意国华人商家完成品牌数字化转型，用高质感美学打动本地消费者。</p>
+        
+        <div class="portfolio-grid">
+            
+            <div class="portfolio-card">
+                <div class="web-browser-frame">
+                    <div class="web-browser-bar">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <div class="browser-url">domochi.it</div>
+                    </div>
+                    <div class="portfolio-visual">
+                        <img src="domochi-preview.jpg" alt="Dōmochi Milano Homepage Preview">
+                    </div>
+                </div>
+                <div class="portfolio-body">
+                    <span class="tag">米兰手工甜品精美橱窗</span>
+                    <h3>Dōmochi Milano</h3>
+                    <p>针对智能移动端全面调优的品牌橱窗。地道意语结合多语言无缝切换机制，完美承接社交媒体公域流量，全方位建立本地老外消费群体的品牌信任感。</p>
+                    
+                    <div class="card-action-row">
+                        <a href="https://domochi.it" target="_blank" class="btn-action-primary">访问线上橱窗 →</a>
+                        <a href="D%c5%8dmochi.pdf" target="_blank" class="btn-action-pdf">
+                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="web-browser-frame">
+                    <div class="web-browser-bar">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <div class="browser-url">dimsumexpress.eu</div>
+                    </div>
+                    <div class="portfolio-visual">
+                        <img src="dimsum-preview.jpg" alt="DimSum Express Homepage Preview">
+                    </div>
+                </div>
+                <div class="portfolio-body">
+                    <span class="tag">快餐外卖 / 智能自适应菜单</span>
+                    <h3>DimSum Express</h3>
+                    <p>高性能全自适应中意双语数字化菜单系统。一键整合Deliveroo/Glovo第三方外卖配送直链，严谨清晰的法务、税号资质透明公示，全线取代传统高昂的传单印刷成本。</p>
+                    
+                    <div class="card-action-row">
+                        <a href="https://dimsumexpress.eu" target="_blank" class="btn-action-primary">访问数字菜单 →</a>
+                        <a href="DumSumExpress.pdf" target="_blank" class="btn-action-pdf">
+                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="web-browser-frame">
+                    <div class="web-browser-bar">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <div class="browser-url">animabellanails.it</div>
+                    </div>
+                    <div class="portfolio-visual">
+                        <img src="animabella-preview.jpg" alt="Anima Bella Homepage Preview">
+                    </div>
+                </div>
+                <div class="portfolio-body">
+                    <span class="tag">美业沙龙 / 24H自动化预约系统</span>
+                    <h3>Anima Bella Centro Estetico</h3>
+                    <p>搭载智能无缝日历调度矩阵的现代美业数字控台。支持客人自主在线挑选细分项目、指定美疗师与精准时段，极大削减单店在前台电话确认和手工漏单方面的时间损耗。</p>
+                    
+                    <div class="card-action-row">
+                        <a href="https://www.animabellanails.it" target="_blank" class="btn-action-primary">体验在线预约 →</a>
+                        <a href="AnimaBella.pdf" target="_blank" class="btn-action-pdf">
+                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="web-browser-frame">
+                    <div class="web-browser-bar">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <div class="browser-url">bardellarotonda.vercel.app</div>
+                    </div>
+                    <div class="portfolio-visual">
+                        <img src="rotonda-preview.jpg" alt="Bar Della Rotonda Homepage Preview">
+                    </div>
+                </div>
+                <div class="portfolio-body">
+                    <span class="tag">意式咖啡 / 现代轻食吧数字看板</span>
+                    <h3>Bar Della Rotonda</h3>
+                    <p>专为街区高频次消费酒吧定制的轻量级数字看板平台。采用全矢量排版清晰推介时段特色轻食与特调单品，帮助传统街区老店快速完成线上合规展示转型。</p>
+                    
+                    <div class="card-action-row">
+                        <a href="https://bardellarotonda.vercel.app/" target="_blank" class="btn-action-primary">查看数字平台 →</a>
+                        <a href="bardellarotonda.pdf" target="_blank" class="btn-action-pdf">
+                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p class="studio-tag">Zero1 Studio</p>
+        <p>© 2026 Zero1 Studio. Tutti i diritti riservati.</p>
+    </footer>
+
+    <div id="wechatModal" class="wechat-modal" onclick="closeWeChatModal(event)">
+        <div class="wechat-box" onclick="event.stopPropagation()">
+            <h3>联系 Zero1 Studio</h3>
+            <p class="modal-sub">长按识别二维码或点击微信号复制</p>
+            <div class="qr-tabs">
+                <button class="tab-btn active" onclick="switchQR('personal')">工作室微信</button>
+                <button class="tab-btn" onclick="switchQR('official')">官方公众号</button>
+            </div>
+            <div class="qr-display-container">
+                <div class="qr-content active" id="qr-personal">
+                    <img src="IMG-0963.jpeg" alt="Personal WeChat QR">
+                </div>
+                <div class="qr-content" id="qr-official">
+                    <img src="IMG-0961.jpeg" alt="Official Account QR">
+                </div>
+            </div>
+            <div class="copy-id-bar" onclick="copyWeChatID('zero1studio')" title="点击复制微信号">
+                微信号: <span id="wechat-id-text">zero1studio</span>
+            </div>
+            <button class="btn-close-modal" onclick="closeWeChatModal(event)">关闭</button>
+        </div>
+    </div>
+
+    <div id="toastTip" class="toast-tip">
+        <i class="fa-solid fa-circle-check" style="color:var(--wechat-green);"></i> Copiato con successo!
+    </div>
+
+    <script>
+        function openWeChatModal(e) { e.preventDefault(); document.getElementById('wechatModal').classList.add('show'); }
+        function closeWeChatModal(e) { document.getElementById('wechatModal').classList.remove('show'); }
+        function switchQR(type) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.qr-content');
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            if(type === 'personal') {
+                tabs[0].classList.add('active');
+                document.getElementById('qr-personal').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('qr-official').classList.add('active');
+            }
+        }
+        function copyWeChatID(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toastTip');
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
