@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero1 Studio | 意大利华人小店极速建</title>
+    <title>Zero1 Studio | 意大利华人小店极速建站</title>
     
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icon.png.JPG">
@@ -11,86 +11,112 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Zero1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #0071e3; /* 苹果风科技蓝 */
             --dark: #1d1d1f;
             --light: #f5f5f7;
             --text-muted: #86868b;
-            --wechat-green: #07c160; /* 微信绿 */
+            --wechat-green: #07c160;
+            --card-bg: #ffffff;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        body { background-color: var(--light); color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif; }
+        body { background-color: #ffffff; color: var(--dark); line-height: 1.5; -webkit-font-smoothing: antialiased; padding-bottom: 60px; }
         
-        /* 导航栏 */
-        header { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.1); }
-        .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        /* 🍏 Cofolios 风格极简导航栏 */
+        header { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .nav-container { max-width: 1140px; margin: 0 auto; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
         
         .logo-container { text-decoration: none; display: flex; flex-direction: column; }
-        .logo-text { font-weight: 700; font-size: 1.4rem; color: var(--dark); letter-spacing: -0.5px; line-height: 1; }
+        .logo-text { font-weight: 800; font-size: 1.5rem; color: var(--dark); letter-spacing: -0.5px; line-height: 1; }
         .logo-text span { color: var(--primary); }
-        .logo-sub { font-size: 0.55rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
+        .logo-sub { font-size: 0.55rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; }
 
-        /* 导航菜单样式 */
-        .nav-menu { display: flex; gap: 25px; list-style: none; align-items: center; }
-        .nav-menu a { text-decoration: none; color: var(--dark); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-        .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
-
-        /* 主视觉区 */
-        .hero { max-width: 1000px; margin: 160px auto 60px; padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .icon-badge { width: 56px; height: 56px; border: 6px solid var(--dark); border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
+        .nav-menu { display: flex; gap: 32px; list-style: none; align-items: center; }
+        .nav-menu a { text-decoration: none; color: #515154; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--dark); font-weight: 600; }
+        
+        /* 👑 主视觉大标题区（Cofolios级留白与大粗体） */
+        .hero { max-width: 1140px; margin: 180px auto 100px; padding: 0 24px; text-align: left; display: flex; flex-direction: column; align-items: flex-start; }
+        .icon-badge { width: 56px; height: 56px; border: 6px solid var(--dark); border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; }
         .icon-badge::after { content: ''; width: 6px; height: 36px; background: var(--primary); border-radius: 3px; position: absolute; }
-        .hero h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 20px; line-height: 1.3; }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 30px; }
         
-        /* 微信联动按钮样式 */
-        .btn-cta { display: inline-block; background: var(--wechat-green); color: white; padding: 14px 35px; border-radius: 980px; text-decoration: none; font-weight: 600; transition: all 0.2s; box-shadow: 0 4px 15px rgba(7,193,96,0.3); border: none; cursor: pointer; }
-        .btn-cta:hover { opacity: 0.9; transform: scale(1.02); }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 24px; line-height: 1.15; color: var(--dark); }
+        .hero p { font-size: 1.35rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; font-weight: 400; letter-spacing: -0.2px; }
+        
+        /* 微信联动主按钮 */
+        .btn-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--wechat-green); color: white; padding: 16px 36px; border-radius: 980px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 25px rgba(7,193,96,0.25); border: none; cursor: pointer; }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(7,193,96,0.35); }
 
-        /* 首页简版案例过渡区 */
-        .portfolio-intro { max-width: 1000px; margin: 0 auto 100px; padding: 60px 20px; background: white; border-radius: 32px; text-align: center; box-shadow: 0 4px 30px rgba(0,0,0,0.02); }
-        .portfolio-intro h2 { font-size: 2rem; font-weight: 700; margin-bottom: 15px; }
-        .portfolio-intro p { color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; font-size: 1.05rem; }
-        .btn-secondary { display: inline-block; background: var(--dark); color: white; padding: 12px 30px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: background 0.2s; }
-        .btn-secondary:hover { background: var(--primary); }
+        /* 🖼️ Cofolios 概念案例过渡大卡片区 */
+        .portfolio-intro-container { max-width: 1140px; margin: 0 auto 80px; padding: 0 24px; }
+        .portfolio-intro { background: var(--card-bg); border-radius: 32px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .web-browser-frame { background: #f5f5f7; border-radius: 32px 32px 0 0; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); border-bottom: none; }
+        .web-browser-bar { background: #f5f5f7; padding: 16px 24px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+        .browser-url { background: #ffffff; color: var(--text-muted); font-size: 0.8rem; padding: 5px 20px; border-radius: 8px; flex-grow: 1; margin-left: 15px; text-align: left; font-family: monospace; letter-spacing: 0.3px; }
 
-        footer { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .icon-switch { width: 36px; height: 36px; border: 4px solid var(--primary); border-radius: 50%; border-top-color: transparent; position: relative; display: flex; justify-content: center; }
-        .icon-switch::after { content: ''; width: 4px; height: 16px; background: var(--primary); border-radius: 2px; position: absolute; top: -4px; }
+        /* 炫酷的动态几何概念背景 */
+        .portfolio-visual-hero { height: 340px; background: linear-gradient(135deg, #0071e3, #00c6ff); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .visual-grid-overlay { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 0); background-size: 24px 24px; }
+        .center-showcase-box { z-index: 2; color: white; text-align: center; }
+        .showcase-icon { font-size: 3rem; margin-bottom: 10px; animation: float 4s ease-in-out infinite; }
+        
+        .portfolio-body-hero { padding: 40px; text-align: left; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-top: none; border-radius: 0 0 32px 32px; }
+        .portfolio-body-hero h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.8px; }
+        .portfolio-body-hero p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; max-width: 750px; }
+        
+        .btn-secondary { display: inline-flex; align-items: center; justify-content: center; background: var(--dark); color: white; padding: 14px 32px; border-radius: 14px; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
+        .btn-secondary:hover { background: var(--primary); transform: translateY(-1px); }
 
-        /* 微信双通道弹窗高级样式调优 */
-        .wechat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        footer { max-width: 1140px; margin: 60px auto 0; padding: 60px 24px; text-align: left; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid #e5e5ea; display: flex; justify-content: space-between; align-items: center; }
+        footer p.studio-tag { font-weight: 700; color: var(--dark); }
+
+        /* 🛠️ 微信双通道面板样式 */
+        .wechat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .wechat-modal.show { opacity: 1; pointer-events: auto; }
-        .wechat-box { background: white; padding: 30px 24px; border-radius: 28px; text-align: center; max-width: 380px; width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.25); transform: scale(0.9); transition: transform 0.3s ease; }
+        .wechat-box { background: white; padding: 35px 28px; border-radius: 28px; text-align: center; max-width: 360px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .wechat-modal.show .wechat-box { transform: scale(1); }
-        .wechat-box h3 { font-size: 1.35rem; margin-bottom: 5px; font-weight: 800; color: var(--dark); }
-        .wechat-box p.modal-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
-        
-        /* 选项卡式二维码展示区 */
-        .qr-tabs { display: flex; background: #f5f5f7; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
-        .tab-btn { flex: 1; border: none; background: transparent; padding: 8px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-radius: 9px; cursor: pointer; transition: all 0.2s; }
-        .tab-btn.active { background: white; color: var(--wechat-green); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        
-        .qr-display-container { position: relative; width: 200px; height: 200px; margin: 0 auto 15px; }
-        .qr-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; border-radius: 14px; border: 1px solid rgba(0,0,0,0.06); padding: 6px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .wechat-box h3 { font-size: 1.4rem; margin-bottom: 6px; font-weight: 800; }
+        .wechat-box p.modal-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px; }
+        .qr-tabs { display: flex; background: #f5f5f7; padding: 4px; border-radius: 12px; margin-bottom: 24px; }
+        .tab-btn { flex: 1; border: none; background: transparent; padding: 9px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-radius: 9px; cursor: pointer; transition: all 0.2s; }
+        .tab-btn.active { background: white; color: var(--wechat-green); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .qr-display-container { position: relative; width: 210px; height: 210px; margin: 0 auto 20px; }
+        .qr-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); padding: 6px; background: #fff; }
         .qr-content.active { display: block; }
-        .qr-content img { width: 100%; height: auto; display: block; object-fit: contain; }
-        
-        /* 复制ID交互区样式 */
-        .copy-id-bar { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: #e8f4ff; color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; cursor: pointer; transition: all 0.2s; border: 1px dashed rgba(0,113,227,0.3); }
-        .copy-id-bar:hover { background: var(--primary); color: white; transform: translateY(-1px); }
-        .copy-id-bar i { font-size: 0.9rem; }
-        
-        /* 全局高阶吐司提示层 */
-        .toast-tip { position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 22px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; z-index: 11000; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; display: flex; align-items: center; gap: 8px; }
+        .qr-content img { width: 100%; height: 100%; display: block; object-fit: contain; }
+        .copy-id-bar { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: #e8f4ff; color: var(--primary); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 24px; cursor: pointer; transition: all 0.2s; border: 1px dashed rgba(0,113,227,0.25); }
+        .copy-id-bar:hover { background: var(--primary); color: white; }
+        .toast-tip { position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: white; padding: 12px 24px; border-radius: 24px; font-size: 0.85rem; font-weight: 600; z-index: 11000; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; display: flex; align-items: center; gap: 8px; }
         .toast-tip.show { opacity: 1; }
+        .btn-close-modal { background: var(--light); color: var(--dark); padding: 12px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; width: 100%; }
 
-        .btn-close-modal { background: var(--light); color: var(--dark); padding: 12px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; width: 100%; transition: background 0.2s; }
-        .btn-close-modal:hover { background: #e2e2e7; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.15rem; }
+            .portfolio-visual-hero { height: 240px; }
+            .portfolio-body-hero { padding: 30px 20px; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- 导航栏 -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo-container">
@@ -106,35 +132,52 @@
         </div>
     </header>
 
+    <!-- 主视觉区 -->
     <section class="hero">
         <div class="icon-badge"></div>
-        <h1>助力意大利华人小店<br>7天极速建站，打造您的专属线上橱窗</h1>
-        <p>提供多语言高保真设计、无缝外卖与社交媒体平台整合</p>
-        <button onclick="openWeChatModal(event)" class="btn-cta">添加微信，免费获取定制方案</button>
+        <h1>助力意大利华人小店<br>7天极速建站，打造您的专属线上橱窗。</h1>
+        <p>提供多语言高保真设计、无缝第三方外卖平台整合与智能美业预约系统，用高级美学牢牢锁住本地消费者。</p>
+        <button onclick="openWeChatModal(event)" class="btn-cta"><i class="fa-brands fa-weixin"></i> 添加微信，获取定制方案</button>
     </section>
 
-    <section class="portfolio-intro">
-        <h2>意国本土商家的信赖之选</h2>
-        <p>点击下方按钮查看精选交付案例。</p>
-        <a href="portfolio.html" class="btn-secondary">浏览全部真实案例 →</a>
+    <!-- 概念性案例过渡大卡片 -->
+    <section class="portfolio-intro-container">
+        <div class="portfolio-intro">
+            <div class="web-browser-frame">
+                <div class="web-browser-bar">
+                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                    <div class="browser-url">zero1studio.it / works</div>
+                </div>
+                <div class="portfolio-visual-hero">
+                    <div class="visual-grid-overlay"></div>
+                    <div class="center-showcase-box">
+                        <div class="showcase-icon">💻</div>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-body-hero">
+                <h2>意国本土商家的信赖之选</h2>
+                <p>从现代甜品橱窗到美业全自动预约调度系统，我们精心打磨每一个像素。点击下方按钮，浏览全部针对本地市场极速优化、法务合规的真实真实案例。</p>
+                <a href="portfolio.html" class="btn-secondary">浏览全部真实案例 →</a>
+            </div>
+        </div>
     </section>
 
+    <!-- 页脚 -->
     <footer>
-        <div class="icon-switch"></div>
+        <p class="studio-tag">Zero1 Studio</p>
         <p>© 2026 Zero1 Studio. Tutti i diritti riservati.</p>
-        <p style="font-size: 0.8rem; opacity: 0.7;">Zero1 Studio</p>
     </footer>
 
+    <!-- 🛠️ 联动微信咨询弹窗 -->
     <div id="wechatModal" class="wechat-modal" onclick="closeWeChatModal(event)">
         <div class="wechat-box" onclick="event.stopPropagation()">
             <h3>联系 Zero1 Studio</h3>
             <p class="modal-sub">长按识别二维码或点击微信号复制</p>
-            
             <div class="qr-tabs">
                 <button class="tab-btn active" onclick="switchQR('personal')">工作室微信</button>
                 <button class="tab-btn" onclick="switchQR('official')">官方公众号</button>
             </div>
-
             <div class="qr-display-container">
                 <div class="qr-content active" id="qr-personal">
                     <img src="IMG-0963.jpeg" alt="Personal WeChat QR">
@@ -143,37 +186,26 @@
                     <img src="IMG-0961.jpeg" alt="Official Account QR">
                 </div>
             </div>
-
             <div class="copy-id-bar" onclick="copyWeChatID('zero1studio')" title="点击复制微信号">
                 微信号: <span id="wechat-id-text">zero1studio</span>
             </div>
-
             <button class="btn-close-modal" onclick="closeWeChatModal(event)">关闭</button>
         </div>
     </div>
 
+    <!-- 🚀 吐司提示层 -->
     <div id="toastTip" class="toast-tip">
-        Copierò con successo!
+        <i class="fa-solid fa-circle-check" style="color:var(--wechat-green);"></i> Copiato con successo!
     </div>
 
     <script>
-        // 弹窗状态控制
-        function openWeChatModal(e) {
-            e.preventDefault();
-            document.getElementById('wechatModal').classList.add('show');
-        }
-        function closeWeChatModal(e) {
-            document.getElementById('wechatModal').classList.remove('show');
-        }
-
-        // 二维码无缝选项卡切换逻辑
+        function openWeChatModal(e) { e.preventDefault(); document.getElementById('wechatModal').classList.add('show'); }
+        function closeWeChatModal(e) { document.getElementById('wechatModal').classList.remove('show'); }
         function switchQR(type) {
             const tabs = document.querySelectorAll('.tab-btn');
             const contents = document.querySelectorAll('.qr-content');
-            
             tabs.forEach(t => t.classList.remove('active'));
             contents.forEach(c => c.classList.remove('active'));
-            
             if(type === 'personal') {
                 tabs[0].classList.add('active');
                 document.getElementById('qr-personal').classList.add('active');
@@ -182,17 +214,11 @@
                 document.getElementById('qr-official').classList.add('active');
             }
         }
-
-        // 点击微信号自动复制与提示回馈
         function copyWeChatID(text) {
             navigator.clipboard.writeText(text).then(() => {
                 const toast = document.getElementById('toastTip');
                 toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 2000);
-            }).catch(err => {
-                console.error('Errore: ', err);
+                setTimeout(() => { toast.classList.remove('show'); }, 2000);
             });
         }
     </script>
