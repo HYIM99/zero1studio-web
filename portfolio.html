@@ -15,37 +15,38 @@
             --card-bg: #ffffff;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif; }
-        body { background-color: #ffffff; color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; padding-bottom: 60px; }
+        body { background-color: #ffffff; color: var(--dark); line-height: 1.5; -webkit-font-smoothing: antialiased; padding-bottom: 60px; }
         
         /* 🍏 Cofolios 风格极简导航栏 */
-        header { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        header { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .nav-container { max-width: 1140px; margin: 0 auto; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
         
         .logo-container { text-decoration: none; display: flex; flex-direction: column; }
-        .logo-text { font-weight: 700; font-size: 1.4rem; color: var(--dark); letter-spacing: -0.5px; line-height: 1; }
+        .logo-text { font-weight: 800; font-size: 1.5rem; color: var(--dark); letter-spacing: -0.5px; line-height: 1; }
         .logo-text span { color: var(--primary); }
-        .logo-sub { font-size: 0.55rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
+        .logo-sub { font-size: 0.55rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; }
 
         .nav-menu { display: flex; gap: 32px; list-style: none; align-items: center; }
-        .nav-menu a { text-decoration: none; color: var(--dark); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-        .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
+        .nav-menu a { text-decoration: none; color: #515154; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--dark); font-weight: 600; }
         
-        .btn-cta { display: inline-block; background: var(--dark); color: white; padding: 10px 22px; border-radius: 980px; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
-        .btn-cta:hover { background: var(--primary); }
+        .btn-cta { display: inline-block; background: var(--dark); color: white; padding: 10px 22px; border-radius: 980px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; }
+        .btn-cta:hover { background: var(--primary); transform: translateY(-1px); }
 
-        /* 案例区布局 */
-        .portfolio-section { max-width: 1140px; margin: 140px auto 80px; padding: 20px; }
-        .section-title { font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px; text-align: center; }
-        .section-subtitle { color: var(--text-muted); font-size: 1.25rem; font-weight: 400; max-width: 600px; margin: 0 auto 60px; text-align: center; letter-spacing: -0.2px; }
+        /* 👑 Cofolios 标志性巨型标题区 */
+        .portfolio-section { max-width: 1140px; margin: 140px auto 40px; padding: 0 24px; }
+        .section-title { font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px; line-height: 1.15; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.25rem; font-weight: 400; max-width: 600px; margin-bottom: 60px; letter-spacing: -0.2px; }
         
+        /* Cofolios 标准大网格 */
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 40px; }
         
-        /* 🖼01 卡片架构 */
-        .portfolio-card { background: var(--card-bg); border-radius: 28px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        /* 🖼️ 高端卡片整体架构 */
+        .portfolio-card { background: var(--card-bg); border-radius: 28px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
         .portfolio-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         
         /* 仿真浏览器外壳 */
-        .web-browser-frame { background: #f5f5f7; border-radius: 24px 24px 0 0; overflow: hidden; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .web-browser-frame { background: #f5f5f7; border-radius: 24px 24px 0 0; overflow: hidden; border-bottom: 1px solid rgba(0,0,0,0.04); }
         .web-browser-bar { background: #f5f5f7; padding: 14px 20px; display: flex; align-items: center; gap: 6px; }
         .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
         .dot.red { background: #ff5f56; }
@@ -53,27 +54,26 @@
         .dot.green { background: #27c93f; }
         .browser-url { background: #ffffff; color: var(--text-muted); font-size: 0.8rem; padding: 5px 20px; border-radius: 8px; flex-grow: 1; margin-left: 15px; text-align: left; font-family: -apple-system, sans-serif; letter-spacing: 0.3px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.01); }
 
-        /* 📸 高清大图效果区 */
+        /* 📸 核心首页图案图展示区 */
         .portfolio-visual { height: 280px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f5f5f7; }
         .portfolio-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        /* 📋 案例文字与双按钮排版区 */
-        .portfolio-body { padding: 28px 24px 24px; flex-grow: 1; display: flex; flex-direction: column; }
-        .tag { display: inline-block; background: #f5f5f7; color: #1d1d1f; padding: 5px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-bottom: 14px; align-self: flex-start; }
-        .portfolio-body h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; color: var(--dark); }
-        .portfolio-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.55; margin-bottom: 25px; font-weight: 400; flex-grow: 1; }
         
-        /* 双按钮交互区 */
-        .card-action-row { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
-        .btn-action-primary { display: inline-flex; align-items: center; justify-content: center; background: var(--dark); color: white; padding: 12px 24px; border-radius: 14px; text-decoration: none; font-size: 0.95rem; font-weight: 700; transition: background 0.2s; }
-        .btn-action-primary:hover { background: var(--primary); }
-        .btn-action-pdf { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #f5f5f7; color: var(--dark); padding: 12px 24px; border-radius: 14px; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; border: 1px solid rgba(0,0,0,0.02); }
-        .btn-action-pdf:hover { background: #e2e2e7; }
+        /* 📋 案例文字排版区 */
+        .portfolio-body { padding: 28px 24px 24px; flex-grow: 1; display: flex; flex-direction: column; }
+        .tag { display: inline-block; background: #f5f5f7; color: #1d1d1f; padding: 5px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-bottom: 14px; align-self: flex-start; letter-spacing: -0.1px; }
+        .portfolio-body h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; color: var(--dark); }
+        .portfolio-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.55; margin-bottom: 20px; font-weight: 400; flex-grow: 1; }
+        
+        .arrow-link { font-size: 0.95rem; font-weight: 700; color: var(--primary); display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease; margin-top: auto; }
+        
+        /* ⚡ 悬停触发图片丝滑放大动效 */
+        .portfolio-card:hover .portfolio-visual img { transform: scale(1.03); }
+        .portfolio-card:hover .arrow-link { gap: 8px; color: var(--dark); }
 
-        footer { max-width: 1140px; margin: 0 auto; padding: 60px 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid #e5e5ea; display: flex; justify-content: space-between; align-items: center; }
+        footer { max-width: 1140px; margin: 60px auto 0; padding: 60px 24px; text-align: left; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid #e5e5ea; display: flex; justify-content: space-between; align-items: center; }
         footer p.studio-tag { font-weight: 700; color: var(--dark); }
 
-        /* 🛠️ 微信弹窗面板 */
+        /* 🛠️ 微信双通道面板样式 */
         .wechat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .wechat-modal.show { opacity: 1; pointer-events: auto; }
         .wechat-box { background: white; padding: 35px 28px; border-radius: 28px; text-align: center; max-width: 360px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -96,6 +96,7 @@
         @media (max-width: 900px) {
             .portfolio-grid { grid-template-columns: 1fr; gap: 45px; }
             .section-title { font-size: 2.4rem; }
+            .portfolio-visual { height: 220px; }
         }
         @media (max-width: 768px) {
             .nav-menu { display: none; }
@@ -104,6 +105,7 @@
 </head>
 <body>
 
+    <!-- 导航栏 -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo-container">
@@ -119,116 +121,99 @@
         </div>
     </header>
 
+    <!-- 核心案例展示区 -->
     <section class="portfolio-section">
         <h1 class="section-title">Selected Works.</h1>
         <p class="section-subtitle">助力意国华人商家完成品牌数字化转型，用高质感美学打动本地消费者。</p>
         
         <div class="portfolio-grid">
             
-            <div class="portfolio-card">
+            <!-- 案例一：Dōmochi -->
+            <a href="https://domochi.it" target="_blank" class="portfolio-card">
                 <div class="web-browser-frame">
                     <div class="web-browser-bar">
                         <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                         <div class="browser-url">domochi.it</div>
                     </div>
                     <div class="portfolio-visual">
-                        <img src="domochi-preview.jpg" alt="Dōmochi Milano Homepage Preview">
+                        <img src="img-domochi.jpg" alt="Dōmochi Milano Homepage Preview">
                     </div>
                 </div>
                 <div class="portfolio-body">
                     <span class="tag">米兰手工甜品精美橱窗</span>
                     <h3>Dōmochi Milano</h3>
-                    <p>针对智能移动端全面调优的品牌橱窗。地道意语结合多语言无缝切换机制，完美承接社交媒体公域流量，全方位建立本地老外消费群体的品牌信任感。</p>
-                    
-                    <div class="card-action-row">
-                        <a href="https://domochi.it" target="_blank" class="btn-action-primary">访问线上橱窗 →</a>
-                        <a href="D%c5%8dmochi.pdf" target="_blank" class="btn-action-pdf">
-                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
-                        </a>
-                    </div>
+                    <p>针对智能移动端全面调优的品牌橱窗。地道意语结合多语言无缝切换机制，完美承接社交媒体公域流量，全方位建立本地老老外消费群体的品牌信任感。</p>
+                    <span class="arrow-link">访问线上橱窗 →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="portfolio-card">
+            <!-- 案例二：DimSum Express -->
+            <a href="https://dimsumexpress.eu" target="_blank" class="portfolio-card">
                 <div class="web-browser-frame">
                     <div class="web-browser-bar">
                         <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                         <div class="browser-url">dimsumexpress.eu</div>
                     </div>
                     <div class="portfolio-visual">
-                        <img src="dimsum-preview.jpg" alt="DimSum Express Homepage Preview">
+                        <img src="img-dimsum.jpg" alt="DimSum Express Homepage Preview">
                     </div>
                 </div>
                 <div class="portfolio-body">
                     <span class="tag">快餐外卖 / 智能自适应菜单</span>
                     <h3>DimSum Express</h3>
                     <p>高性能全自适应中意双语数字化菜单系统。一键整合Deliveroo/Glovo第三方外卖配送直链，严谨清晰的法务、税号资质透明公示，全线取代传统高昂的传单印刷成本。</p>
-                    
-                    <div class="card-action-row">
-                        <a href="https://dimsumexpress.eu" target="_blank" class="btn-action-primary">访问数字菜单 →</a>
-                        <a href="DumSumExpress.pdf" target="_blank" class="btn-action-pdf">
-                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
-                        </a>
-                    </div>
+                    <span class="arrow-link">访问数字菜单 →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="portfolio-card">
+            <!-- 案例三：Anima Bella -->
+            <a href="https://www.animabellanails.it" target="_blank" class="portfolio-card">
                 <div class="web-browser-frame">
                     <div class="web-browser-bar">
                         <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                         <div class="browser-url">animabellanails.it</div>
                     </div>
                     <div class="portfolio-visual">
-                        <img src="animabella-preview.jpg" alt="Anima Bella Homepage Preview">
+                        <img src="img-animabella.jpg" alt="Anima Bella Homepage Preview">
                     </div>
                 </div>
                 <div class="portfolio-body">
                     <span class="tag">美业沙龙 / 24H自动化预约系统</span>
                     <h3>Anima Bella Centro Estetico</h3>
                     <p>搭载智能无缝日历调度矩阵的现代美业数字控台。支持客人自主在线挑选细分项目、指定美疗师与精准时段，极大削减单店在前台电话确认和手工漏单方面的时间损耗。</p>
-                    
-                    <div class="card-action-row">
-                        <a href="https://www.animabellanails.it" target="_blank" class="btn-action-primary">体验在线预约 →</a>
-                        <a href="AnimaBella.pdf" target="_blank" class="btn-action-pdf">
-                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
-                        </a>
-                    </div>
+                    <span class="arrow-link">体验在线预约 →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="portfolio-card">
+            <!-- 案例四：Bar Della Rotonda -->
+            <a href="https://bardellarotonda.vercel.app/" target="_blank" class="portfolio-card">
                 <div class="web-browser-frame">
                     <div class="web-browser-bar">
                         <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                         <div class="browser-url">bardellarotonda.vercel.app</div>
                     </div>
                     <div class="portfolio-visual">
-                        <img src="rotonda-preview.jpg" alt="Bar Della Rotonda Homepage Preview">
+                        <img src="img-bardellarotonda.jpg" alt="Bar Della Rotonda Homepage Preview">
                     </div>
                 </div>
                 <div class="portfolio-body">
                     <span class="tag">意式咖啡 / 现代轻食吧数字看板</span>
                     <h3>Bar Della Rotonda</h3>
                     <p>专为街区高频次消费酒吧定制的轻量级数字看板平台。采用全矢量排版清晰推介时段特色轻食与特调单品，帮助传统街区老店快速完成线上合规展示转型。</p>
-                    
-                    <div class="card-action-row">
-                        <a href="https://bardellarotonda.vercel.app/" target="_blank" class="btn-action-primary">查看数字平台 →</a>
-                        <a href="bardellarotonda.pdf" target="_blank" class="btn-action-pdf">
-                            <i class="fa-regular fa-file-pdf" style="color:#ff3b30;"></i> 在线预览案例 PDF
-                        </a>
-                    </div>
+                    <span class="arrow-link">查看数字平台 →</span>
                 </div>
-            </div>
+            </a>
 
         </div>
     </section>
 
+    <!-- 页脚 -->
     <footer>
         <p class="studio-tag">Zero1 Studio</p>
         <p>© 2026 Zero1 Studio. Tutti i diritti riservati.</p>
     </footer>
 
+    <!-- 🛠️ 联动微信咨询弹窗 -->
     <div id="wechatModal" class="wechat-modal" onclick="closeWeChatModal(event)">
         <div class="wechat-box" onclick="event.stopPropagation()">
             <h3>联系 Zero1 Studio</h3>
