@@ -21,43 +21,50 @@
             --success: #34c759;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-        body { background-color: var(--light); color: var(--dark); display: flex; height: 100vh; overflow: hidden; -webkit-user-select: none; }
+        body { background-color: var(--light); color: var(--dark); display: flex; height: 100vh; overflow: hidden; }
 
         /* 左侧侧边栏 */
         .sidebar { width: 260px; background: var(--dark); color: var(--white); padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; flex-shrink: 0; }
-        .brand { font-size: 1.4rem; font-weight: 700; margin-bottom: 40px; padding-left: 10px; }
+        .brand { font-size: 1.4rem; font-weight: 700; margin-bottom: 40px; padding-left: 10px; letter-spacing: -0.5px; }
         .brand span { color: var(--primary); }
         .menu-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         
-        /* 优化 iPad 上的触控体验 */
-        .menu-item { padding: 15px 20px; border-radius: 12px; cursor: pointer; color: #a1a1a6; font-weight: 500; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
+        /* 极致优化 iPad 触控与高频防误触 */
+        .menu-item { padding: 16px 20px; border-radius: 14px; cursor: pointer; color: #a1a1a6; font-weight: 600; transition: all 0.25s ease; -webkit-tap-highlight-color: transparent; user-select: none; }
         .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.1); color: var(--white); }
         .menu-item.active { background: var(--primary); color: var(--white); }
 
-        /* 右侧内容区 */
+        /* 右侧核心面板内容区 */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .header-bar h1 { font-size: 1.8rem; font-weight: 700; }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; }
+        .header-bar h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
         
-        .content-panel { display: none; background: var(--white); padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-        .content-panel.active { display: block; }
+        .content-panel { display: none; background: var(--white); padding: 35px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.01); }
+        .content-panel.active { display: block; animation: fadeIn 0.2s ease-out; }
 
-        /* 表单与输入框 */
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #515154; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--light); transition: all 0.2s; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: var(--white); outline: none; }
+        /* 统一高端表单间距 */
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; color: var(--dark); }
+        .form-group input, .form-group textarea { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 1rem; background: var(--light); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: var(--white); outline: none; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
         
-        /* 案例卡片样式 */
-        .case-list { margin-top: 15px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
-        .case-item { display: flex; justify-content: space-between; align-items: center; padding: 18px; background: var(--light); border-radius: 12px; }
-        .case-info h4 { font-weight: 600; font-size: 1.05rem; }
-        .case-info p { font-size: 0.9rem; color: #86868b; margin-top: 4px; }
+        /* 数据异步展示列表面板 */
+        .case-list { margin-top: 15px; display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
+        .case-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: var(--light); border-radius: 16px; border: 1px solid rgba(0,0,0,0.02); }
+        .case-info h4 { font-weight: 700; font-size: 1.1rem; color: var(--dark); }
+        .case-info p { font-size: 0.95rem; color: #86868b; margin-top: 6px; }
 
-        /* 按钮控制 */
-        .btn-save { background: var(--primary); color: var(--white); padding: 12px 30px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        .btn-save:disabled { background: #a1a1a6; }
-        .btn-danger { background: #ff453a; color: white; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 500; }
+        /* 按钮与交互阻断器 */
+        .btn-save { background: var(--primary); color: var(--white); padding: 14px 32px; border-radius: 12px; border: none; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
+        .btn-save:active { transform: scale(0.98); }
+        .btn-save:disabled { background: #d2d2d7; color: #86868b; cursor: not-allowed; transform: none; }
+        .btn-danger { background: #ff453a; color: white; padding: 10px 16px; border-radius: 10px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: background 0.2s; }
+        .btn-danger:hover { background: #df3b32; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         @media (max-width: 768px) {
             body { flex-direction: column; }
@@ -89,28 +96,34 @@
                 <button class="btn-save" id="btn-save-info" onclick="saveSiteInfo()">保存更新</button>
             </div>
             <div class="form-group">
-                <label>主标题 (H1)</label>
-                <input type="text" id="input-title">
-            </div>
-            <div class="form-group">
-                <label>副标题描述 (Paragraph)</label>
-                <textarea id="input-desc" rows="4"></textarea>
+                <div class="form-group">
+                    <label>主标题 (H1)</label>
+                    <input type="text" id="input-title">
+                </div>
+                <div class="form-group">
+                    <label>副标题描述 (Paragraph)</label>
+                    <textarea id="input-desc" rows="4"></textarea>
+                </div>
             </div>
         </div>
 
         <div id="panel-cases" class="content-panel">
             <div class="header-bar">
                 <h1>交付案例管理</h1>
-                <button class="btn-save" onclick="addPortfolioCase()">发布新案例</button>
+                <button class="btn-save" id="btn-add-case" onclick="addPortfolioCase()">发布新案例</button>
             </div>
-            <div class="form-group" style="background: var(--light); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
-                <label>新增案例名称</label>
-                <input type="text" id="case-name" placeholder="例如：米兰打包店智能点餐系统">
-                <label style="margin-top: 12px;">案例简介说明</label>
-                <input type="text" id="case-desc" placeholder="例如：帮店主全自动接单，锁客留存率提升40%">
+            <div class="form-group" style="background: var(--light); padding: 24px; border-radius: 16px; margin-bottom: 25px; border: 1px dashed var(--border);">
+                <div class="form-group">
+                    <label>新增案例名称</label>
+                    <input type="text" id="case-name" placeholder="例如：米兰打包店智能点餐系统">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>案例简介说明</label>
+                    <input type="text" id="case-desc" placeholder="例如：帮店主全自动接单，锁客留存率提升40%">
+                </div>
             </div>
             
-            <h3>已有案例列表</h3>
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 15px;">已有案例列表</h3>
             <div class="case-list" id="dom-case-list"></div>
         </div>
 
@@ -120,115 +133,113 @@
                 <button class="btn-save" id="btn-save-contact" onclick="saveContactInfo()">保存更新</button>
             </div>
             <div class="form-group">
-                <label>微信号码</label>
-                <input type="text" id="input-wechat">
-            </div>
-            <div class="form-group">
-                <label>更换微信二维码图片链接</label>
-                <input type="text" id="input-qr" placeholder="/assets/qrcode.png">
+                <div class="form-group">
+                    <label>微信号码</label>
+                    <input type="text" id="input-wechat">
+                </div>
+                <div class="form-group">
+                    <label>更换微信二维码图片链接</label>
+                    <input type="text" id="input-qr" placeholder="IMG-0963.jpeg">
+                </div>
             </div>
         </div>
 
     </div>
 
     <script>
-        // 1. 初始化连接
+        // 1. 初始化底座连接
         const SUPABASE_URL = "https://usawifozjkmgsyevtuzp.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzYXdpZm96amttZ3N5ZXZ0dXpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3Njk0MDUsImV4cCI6MjA4NjM0NTQwNX0.Ope-KJ2qqhx3vJMd0F7eGy36PUCpleNUEcPARf-IUgg"; 
         
         let supabase;
         try {
-            supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            if (typeof Supabase !== 'undefined') {
+                supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } else {
+                console.error("Supabase SDK 未能成功载入");
+            }
         } catch(e) {
-            alert("🚨 Supabase 客户端初始化失败: " + e.message);
+            console.error("Supabase 初始化底层报错: ", e);
         }
 
-        // 2. 强行修复菜单点击（把逻辑提到最前面，不受任何接口报错影响）
+        // 2. ⚡ 强行解耦：纯前端隔离机制，保证 iPad 点击任何时候绝对不卡死、按得动
         function switchTab(tabId) {
-            try {
-                // 清除所有高亮和隐藏所有面板
-                document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-                document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
-                
-                // 精准控制激活
-                const targetMenu = document.getElementById('menu-' + tabId);
-                const targetPanel = document.getElementById('panel-' + tabId);
-                
-                if (targetMenu && targetPanel) {
-                    targetMenu.classList.add('active');
-                    targetPanel.classList.add('active');
-                } else {
-                    alert("找不到菜单或面板: " + tabId);
-                }
-            } catch(e) {
-                alert("菜单切换发生错误: " + e.message);
+            // 清除全部高亮状态
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            // 隐藏所有面板
+            document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
+            
+            // 精准唤醒选中目标
+            const targetMenu = document.getElementById('menu-' + tabId);
+            const targetPanel = document.getElementById('panel-' + tabId);
+            
+            if (targetMenu && targetPanel) {
+                targetMenu.classList.add('active');
+                targetPanel.classList.add('active');
             }
         }
 
-        // 页面就绪自动拉取云端数据
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchSiteData();
-            fetchPortfolioCases();
-        });
-
-        // 从云端数据库读取基础介绍
+        // 3. 异步平滑读取云端主页配置
         async function fetchSiteData() {
+            if (!supabase) return;
             try {
-                if (!supabase) return;
                 let { data, error } = await supabase.from('site_info').select('*').eq('id', 'zero1_main').maybeSingle();
                 if (error) {
-                    alert("🚨 读取 site_info 失败: " + error.message);
+                    console.warn("读取 site_info 失败或表不存在，请检查 Supabase 字段: " + error.message);
                     return;
                 }
                 if (data) {
-                    document.getElementById('input-title').value = data.title || '';
-                    document.getElementById('input-desc').value = data.description || '';
-                    document.getElementById('input-wechat').value = data.wechat || '';
-                    document.getElementById('input-qr').value = data.qr_code_url || '';
+                    if (document.getElementById('input-title')) document.getElementById('input-title').value = data.title || '';
+                    if (document.getElementById('input-desc')) document.getElementById('input-desc').value = data.description || '';
+                    if (document.getElementById('input-wechat')) document.getElementById('input-wechat').value = data.wechat || '';
+                    if (document.getElementById('input-qr')) document.getElementById('input-qr').value = data.qr_code_url || '';
                 }
             } catch (err) { 
-                alert("fetchSiteData 系统崩溃: " + err.message); 
+                console.error("fetchSiteData 抛出异常被成功拦截: " + err.message); 
             }
         }
 
-        // 从云端数据库读取案例列表
+        // 4. 异步读取后台管理案例列表
         async function fetchPortfolioCases() {
+            if (!supabase) return;
+            const listContainer = document.getElementById('dom-case-list');
+            if(!listContainer) return;
+            
             try {
-                if (!supabase) return;
                 let { data, error } = await supabase.from('portfolio_cases').select('*').order('id', { ascending: false });
                 if (error) {
-                    alert("🚨 读取 portfolio_cases 失败: " + error.message);
+                    listContainer.innerHTML = `<p style="color:#ff453a;font-size:0.9rem;padding:10px;">⚠️ 数据库读取受限: ${error.message}</p>`;
                     return;
                 }
-                const listContainer = document.getElementById('dom-case-list');
-                if(!listContainer) return;
-                listContainer.innerHTML = ''; 
                 
+                listContainer.innerHTML = ''; 
                 if (data && data.length > 0) {
                     data.forEach(item => {
                         listContainer.innerHTML += `
                             <div class="case-item" id="case-${item.id}">
                                 <div class="case-info">
                                     <h4>${item.name}</h4>
-                                    <p>${item.description}</p>
+                                    <p>${item.description || '暂无详细描述'}</p>
                                 </div>
                                 <button class="btn-danger" onclick="deleteCase(${item.id})">删除</button>
                             </div>
                         `;
                     });
                 } else {
-                    listContainer.innerHTML = '<p style="color:#86868b;font-size:0.9rem;padding:10px;">暂无案例，请在上方添加。</p>';
+                    listContainer.innerHTML = '<p style="color:#86868b;font-size:0.9rem;padding:10px;">暂无云端上架案例。</p>';
                 }
             } catch (err) { 
-                alert("fetchPortfolioCases 系统崩溃: " + err.message); 
+                listContainer.innerHTML = `<p style="color:#ff453a;font-size:0.9rem;padding:10px;">系统挂起错误: ${err.message}</p>`;
             }
         }
 
-        // 保存介绍字样
+        // 5. 安全保存更新：主页文字介绍
         async function saveSiteInfo() {
+            if (!supabase) return alert("无法保存：Supabase 基础组件未就绪");
+            const btn = document.getElementById('btn-save-info');
+            
             try {
-                const btn = document.getElementById('btn-save-info');
-                btn.innerText = "正在保存...";
+                btn.innerText = "正在同步云端...";
                 btn.disabled = true;
 
                 const title = document.getElementById('input-title').value;
@@ -236,18 +247,23 @@
 
                 const { error } = await supabase.from('site_info').upsert({ id: 'zero1_main', title: title, description: desc });
                 
+                if (error) alert("🚨 同步失败：" + error.message);
+                else alert("🎉 官网主页介绍已成功实时同步至 Supabase 云端！");
+            } catch(e) { 
+                alert("异常中断: " + e.message); 
+            } finally {
                 btn.innerText = "保存更新";
                 btn.disabled = false;
-                if (error) alert("保存失败：" + error.message);
-                else alert("🎉 官网主页介绍已实时同步至云端！");
-            } catch(e) { alert("保存引发未知异常: " + e.message); }
+            }
         }
 
-        // 保存联系方式
+        // 6. 安全保存更新：联系方式与物料
         async function saveContactInfo() {
+            if (!supabase) return alert("无法保存：Supabase 基础组件未就绪");
+            const btn = document.getElementById('btn-save-contact');
+            
             try {
-                const btn = document.getElementById('btn-save-contact');
-                btn.innerText = "正在保存...";
+                btn.innerText = "正在同步云端...";
                 btn.disabled = true;
 
                 const wechat = document.getElementById('input-wechat').value;
@@ -255,43 +271,66 @@
 
                 const { error } = await supabase.from('site_info').upsert({ id: 'zero1_main', wechat: wechat, qr_code_url: qr });
                 
+                if (error) alert("🚨 写入失败：" + error.message);
+                else alert("🎉 微信联系方式与图片路径已云同步成功！");
+            } catch(e) { 
+                alert("异常中断: " + e.message); 
+            } finally {
                 btn.innerText = "保存更新";
                 btn.disabled = false;
-                if (error) alert("保存失败：" + error.message);
-                else alert("🎉 微信联系方式已成功云同步！");
-            } catch(e) { alert("保存引发未知异常: " + e.message); }
+            }
         }
 
-        // 新增案例
+        // 7. 新增案例发布
         async function addPortfolioCase() {
+            if (!supabase) return alert("无法发布：数据库未就绪");
+            const btn = document.getElementById('btn-add-case');
+            const name = document.getElementById('case-name').value;
+            const desc = document.getElementById('case-desc').value;
+            
+            if(!name.trim()) return alert('请输入交付案例名称');
+
             try {
-                const name = document.getElementById('case-name').value;
-                const desc = document.getElementById('case-desc').value;
-                if(!name) return alert('请输入案例名称');
+                btn.innerText = "正在发布...";
+                btn.disabled = true;
 
                 const { error } = await supabase.from('portfolio_cases').insert([{ name: name, description: desc }]);
                 if (error) {
-                    alert("发布失败：" + error.message);
+                    alert("发布拒绝：" + error.message);
                 } else {
                     document.getElementById('case-name').value = '';
                     document.getElementById('case-desc').value = '';
-                    alert("🎉 新案例已成功上架！");
+                    alert("🎉 新项目已成功上架数据库！");
                     fetchPortfolioCases(); 
                 }
-            } catch(e) { alert("添加案例未知异常: " + e.message); }
+            } catch(e) { 
+                alert("发布捕获异常: " + e.message); 
+            } finally {
+                btn.innerText = "发布新案例";
+                btn.disabled = false;
+            }
         }
 
-        // 删除某条案例
+        // 8. 斩断案例关联：安全删除
         async function deleteCase(id) {
+            if (!supabase) return;
             try {
-                if(!confirm('确定要删除这个案例吗？')) return;
+                if(!confirm('确定要从后台和前台永久删除这个交付案例吗？')) return;
                 const { error } = await supabase.from('portfolio_cases').delete().eq('id', id);
-                if (error) alert("删除失败：" + error.message);
-                else {
-                    fetchPortfolioCases(); 
-                }
-            } catch(e) { alert("删除未知异常: " + e.message); }
+                if (error) alert("删除受阻：" + error.message);
+                else fetchPortfolioCases(); 
+            } catch(e) { 
+                alert("删除捕获异常: " + e.message); 
+            }
         }
+
+        // 🚀 初始化载入守卫：防堵塞无感异步唤醒
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                fetchSiteData();
+                fetchPortfolioCases();
+            }, 100);
+        });
     </script>
 </body>
 </html>
