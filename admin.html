@@ -143,25 +143,30 @@
         </div>
     </div>
 
-    <script>
-        // 🚀 核心对齐：已完美更换为你最新执行 SQL 的 zero1studio 项目专属凭证
-        const SUPABASE_URL = "https://ntimggwcoquvymtwesem.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50aW1nZ3djb3F1dnltdHdlc2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3Njk0MDUsImV4cCI6MjA4NjM0NTQwNX0.Ope-KJ2qqhx3vJMd0F7eGy36PUCpleNUEcPARf-IUgg"; 
+    <// 🚀 请把下面的 SUPABASE_ANON_KEY 替换成你从 Supabase 后台复制出来的真正完整长字符串
+const SUPABASE_URL = "https://ntimggwcoquvymtwesem.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzYXdpZm96amttZ3N5ZXZ0dnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyNTI1ODIsImV4cCI6MjA5NzgyODU4Mn0.Ope-KJ2qqhx3vJMd0F7eGy36PUCpleNUEcPARf-lUgg"; 
+
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
         
         // 【已修复类名】：大写的 Supabase 确保初始化绝对不崩溃
         const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // 管理员密码验证逻辑（密码 8888 畅行意国）
-        function checkLogin(e) {
-            if(e.key === 'Enter') {
-                if(document.getElementById('admin-password').value === '8888') {
-                    document.getElementById('login-overlay').style.display = 'none';
-                    init();
-                } else {
-                    alert('密码错误');
-                }
-            }
+        // 增强版验证：无论按回车还是失焦，只要密码对立马放行
+function checkLogin(e) {
+    // 兼容回车键或者 iPad 的“前往”键
+    if (!e || e.key === 'Enter') {
+        const pwd = document.getElementById('admin-password').value;
+        if (pwd === '8888') {
+            document.getElementById('login-overlay').style.display = 'none';
+            init();
+        } else if (e && e.key === 'Enter') {
+            alert('密码错误');
         }
+    }
+}
 
         function switchTab(tabId) {
             document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
