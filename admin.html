@@ -26,7 +26,7 @@
 
         /* 登录遮罩 */
         #login-overlay { position: fixed; inset: 0; background: var(--dark); z-index: 999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; }
-        #login-overlay input { padding: 12px; border-radius: 8px; border: none; width: 240px; margin-top: 20px; text-align: center; font-size: 1.1rem; }
+        #login-overlay input { padding: 12px; border-radius: 8px; border: none; width: 240px; margin-top: 20px; text-align: center; font-size: 1.1rem; color: #1d1d1f; }
 
         /* 侧边栏 */
         .sidebar { width: 260px; background: var(--dark); color: var(--white); padding: 30px 20px; display: flex; flex-direction: column; flex-shrink: 0; z-index: 10; }
@@ -143,30 +143,25 @@
         </div>
     </div>
 
-    <// 🚀 请把下面的 SUPABASE_ANON_KEY 替换成你从 Supabase 后台复制出来的真正完整长字符串
-const SUPABASE_URL = "https://ntimggwcoquvymtwesem.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzYXdpZm96amttZ3N5ZXZ0dnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyNTI1ODIsImV4cCI6MjA5NzgyODU4Mn0.Ope-KJ2qqhx3vJMd0F7eGy36PUCpleNUEcPARf-lUgg"; 
+    <script>
+        // 1. 底座连接配置（完美承接 zero1studio 最新云端项目凭证）
+        const SUPABASE_URL = "https://ntimggwcoquvymtwesem.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzYXdpZm96amttZ3N5ZXZ0dnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyNTI1ODIsImV4cCI6MjA5NzgyODU4Mn0.Ope-KJ2qqhx3vJMd0F7eGy36PUCpleNUEcPARf-lUgg"; 
 
-const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-        
-        // 【已修复类名】：大写的 Supabase 确保初始化绝对不崩溃
         const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 管理员密码验证逻辑（密码 8888 畅行意国）
-        // 增强版验证：无论按回车还是失焦，只要密码对立马放行
-function checkLogin(e) {
-    // 兼容回车键或者 iPad 的“前往”键
-    if (!e || e.key === 'Enter') {
-        const pwd = document.getElementById('admin-password').value;
-        if (pwd === '8888') {
-            document.getElementById('login-overlay').style.display = 'none';
-            init();
-        } else if (e && e.key === 'Enter') {
-            alert('密码错误');
+        // 2. 增强版验证：无论按回车还是 iPad 软键盘的“前往”键，只要密码对立马平滑解锁
+        function checkLogin(e) {
+            if (!e || e.key === 'Enter') {
+                const pwd = document.getElementById('admin-password').value;
+                if (pwd === '8888') {
+                    document.getElementById('login-overlay').style.display = 'none';
+                    init();
+                } else if (e && e.key === 'Enter') {
+                    alert('密码错误');
+                }
+            }
         }
-    }
-}
 
         function switchTab(tabId) {
             document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
@@ -180,7 +175,7 @@ function checkLogin(e) {
             await fetchPortfolioCases();
         }
 
-        // 获取主页基础配置
+        // 获取主页云端基础配置
         async function fetchSiteData() {
             try {
                 let { data, error } = await supabase.from('site_info').select('*').eq('id', 'zero1_main').maybeSingle();
@@ -197,7 +192,7 @@ function checkLogin(e) {
             } catch (err) { console.error("读取失败", err); }
         }
 
-        // 安全更新主页介绍（定向 update，绝不覆盖其他已有字段）
+        // 定向更新主页介绍
         async function saveSiteInfo() {
             const btn = document.getElementById('btn-save-info');
             btn.disabled = true;
@@ -222,7 +217,7 @@ function checkLogin(e) {
             }
         }
 
-        // 安全更新联系方式（定向 update，绝不破坏文字介绍）
+        // 定向更新联系方式
         async function saveContactInfo() {
             const btn = document.getElementById('btn-save-contact');
             btn.disabled = true;
@@ -247,7 +242,7 @@ function checkLogin(e) {
             }
         }
 
-        // 从云端数据库抓取交付案例
+        // 从云端抓取案例列表
         async function fetchPortfolioCases() {
             const listContainer = document.getElementById('dom-case-list');
             if (!listContainer) return;
@@ -277,7 +272,7 @@ function checkLogin(e) {
             }
         }
 
-        // 新增上架案例
+        // 上架新案例
         async function addPortfolioCase() {
             const btn = document.getElementById('btn-add-case');
             const name = document.getElementById('case-name').value;
@@ -305,7 +300,7 @@ function checkLogin(e) {
             }
         }
 
-        // 斩断案例发布：下架
+        // 下架案例
         async function deleteCase(id) {
             if(!confirm('确定要从线上永久下架删除此案例吗？')) return;
             try {
